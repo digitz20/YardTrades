@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
-import { Briefcase } from 'lucide-react'; // Logo icon
+import { TrendingUp } from 'lucide-react'; // Changed icon import
 import { useToast } from '@/hooks/use-toast';
 import {
   Form,
@@ -76,7 +76,7 @@ export default function LoginPage() {
        <Card className="w-full max-w-md mx-4 bg-card border border-border/60 shadow-xl">
         <CardHeader className="text-center">
            <Link href="/" className="mb-4 inline-flex items-center justify-center space-x-2 text-primary">
-              <Briefcase className="h-8 w-8" />
+              <TrendingUp className="h-8 w-8" /> {/* Changed icon */}
            </Link>
           <CardTitle className="text-2xl font-bold">Welcome Back!</CardTitle>
           <CardDescription>Sign in to access your Yard Trades account.</CardDescription>

@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import { Briefcase } from 'lucide-react'; // Using Briefcase as a placeholder logo icon
+import { TrendingUp } from 'lucide-react'; // Changed icon import
 
 // Updated nav items based on YardTrades reference
 const navItems = [
@@ -26,7 +26,7 @@ export function Header() {
       <div className="container flex h-16 items-center"> {/* Increased height slightly */}
         {/* Logo Placeholder */}
         <Link href="/" className="mr-6 flex items-center space-x-2 text-primary">
-           <Briefcase className="h-6 w-6" />
+           <TrendingUp className="h-6 w-6" /> {/* Changed icon */}
            <span className="font-bold text-xl text-foreground sm:inline-block">
             YardTrades
           </span>

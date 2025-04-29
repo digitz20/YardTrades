@@ -13,7 +13,7 @@ import {
   Settings,
   ShieldCheck,
   LogOut,
-  Briefcase, // Reusing logo icon
+  TrendingUp, // Changed icon import
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -42,7 +42,7 @@ export function DashboardSidebar() {
       {/* Logo/Brand */}
       <div className="flex items-center space-x-2 mb-6 px-2">
          <Link href="/dashboard" className="flex items-center space-x-2 text-primary">
-           <Briefcase className="h-6 w-6" />
+           <TrendingUp className="h-6 w-6" /> {/* Changed icon */}
            <span className="font-bold text-lg text-foreground">
              Yard Trades
            </span>

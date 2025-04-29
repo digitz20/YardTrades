@@ -3,7 +3,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Briefcase, Mail, MapPin, Phone } from 'lucide-react'; // Icons for footer
+import { TrendingUp, Mail, MapPin, Phone } from 'lucide-react'; // Changed icon import
 import { Input } from './ui/input'; // Import Input
 import { Button } from './ui/button'; // Import Button
 
@@ -15,7 +15,7 @@ export function Footer() {
           {/* About Section */}
           <div>
             <Link href="/" className="mb-4 flex items-center space-x-2 text-primary">
-              <Briefcase className="h-7 w-7" />
+              <TrendingUp className="h-7 w-7" /> {/* Changed icon */}
               <span className="font-bold text-xl text-foreground">
                 YardTrades
               </span>

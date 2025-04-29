@@ -72,15 +72,16 @@ export default function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/20 via-background to-background py-20 md:py-32 text-foreground overflow-hidden">
-        {/* High-quality Crypto Background Image Suggestion */}
-        <Image
-          src="https://picsum.photos/seed/finance/1920/1080" // Placeholder - Changed seed for a potentially more finance-related image
-          alt="Financial markets background"
-          layout="fill"
-          objectFit="cover"
-          className="absolute inset-0 z-0 opacity-15 blur-sm" // Reduced opacity
-          priority // Load image early
-        />
+         {/* Placeholder for Bitcoin Animation 1 */}
+         <div className="absolute top-1/4 left-10 opacity-10 animate-pulse">
+             {/* Replace with actual animation component or SVG */}
+             <Bitcoin className="h-16 w-16 text-yellow-400/50" />
+         </div>
+         {/* Placeholder for Bitcoin Animation 2 */}
+         <div className="absolute bottom-1/4 right-10 opacity-10 animate-bounce">
+              {/* Replace with actual animation component or SVG */}
+             <Bitcoin className="h-24 w-24 text-yellow-400/50" />
+         </div>
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 bg-[radial-gradient(#ffffff11_1px,transparent_1px)] [background-size:16px_16px] z-0 opacity-50"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-0"></div> {/* Gradient overlay for better text contrast */}
@@ -258,6 +259,11 @@ export default function Home() {
 
        {/* Call to Action Section */}
        <section className="py-16 md:py-24 bg-primary/10 relative overflow-hidden">
+            {/* Placeholder for Bitcoin Animation 3 */}
+            <div className="absolute top-10 left-1/2 transform -translate-x-1/2 opacity-5 animate-ping">
+                {/* Replace with actual animation component or SVG */}
+                <Bitcoin className="h-12 w-12 text-yellow-400/30" />
+            </div>
             {/* Optional subtle background texture */}
             <div className="absolute inset-0 opacity-5 bg-[url('/path/to/texture.svg')]"></div>
            <div className="container mx-auto px-4 text-center relative z-10">
