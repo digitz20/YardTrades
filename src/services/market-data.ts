@@ -27,7 +27,6 @@ const forexPairs: CurrencyPair[] = [
  * @returns A promise that resolves to an array of CurrencyPair objects.
  */
 export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promise<CurrencyPair[]> {
-  // Only fetch live data for crypto using the free CoinGecko API
  if (type === 'crypto') {
     console.log(`Attempting to fetch live ${type} market data from CoinGecko...`);
     try {
@@ -52,7 +51,7 @@ export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promis
       }
 
       const data = await response.json();
-      console.log("CoinGecko API Response Data:", data);
+      // console.log("CoinGecko API Response Data:", data); // Reduced logging verbosity
 
       if (!Array.isArray(data)) {
           console.error("CoinGecko API response is not an array:", data);
@@ -85,24 +84,24 @@ export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promis
 
         if (processedData.length === 0){
            console.warn("CoinGecko returned no valid data for the requested assets. Using fallback crypto data.");
-           return cryptoPairs; // Fallback to mock if API doesn't return valid data
+           return [...cryptoPairs]; // Return a copy of mock data
         }
 
-        console.log("Successfully fetched and processed live crypto data from CoinGecko:", processedData);
+        console.log("Successfully fetched and processed live crypto data from CoinGecko."); // Reduced logging verbosity
         return processedData;
 
     } catch (error) {
       console.error("Error fetching or processing live market data from CoinGecko:", error);
       console.log("Falling back to mock crypto data.");
-      return cryptoPairs; // Fallback to mock data on any error
+      return [...cryptoPairs]; // Fallback to a copy of mock data on any error
     }
   } else if (type === 'forex') {
     console.log("Returning mock Forex data. (Live fetching not implemented)");
     // Forex data fetching not implemented, return mock data
-    return forexPairs;
+    return [...forexPairs]; // Return a copy
   }
 
   // Default fallback if type is somehow neither crypto nor forex
   console.log("Unknown type requested, returning mock crypto data.");
-  return cryptoPairs;
+  return [...cryptoPairs]; // Return a copy
 }

@@ -5,12 +5,12 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { CheckCircle, DollarSign, BarChart, Users, Bitcoin, TrendingUp, Loader2, Zap } from 'lucide-react'; // Added Zap
+import { CheckCircle, DollarSign, BarChart, Users, Bitcoin, TrendingUp, Loader2, Zap } from 'lucide-react';
 import Image from 'next/image';
-import { getMarketData } from '@/services/market-data'; // Import service
-import type { CurrencyPair } from '@/types'; // Import type
+import { getMarketData } from '@/services/market-data';
+import type { CurrencyPair } from '@/types';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { cn } from '@/lib/utils';
+import { cn } from '@/lib/utils'; // Corrected import path
 
 // Mock investment plan data
 const investmentPlans = [
@@ -74,6 +74,8 @@ export default function Home() {
       } catch (error) {
         console.error("Failed to load market data:", error);
         // Fallback to empty or mock data handled within getMarketData
+        // Ensure cryptoData is always an array
+        setCryptoData([]);
       } finally {
         setIsLoading(false);
       }
@@ -110,11 +112,12 @@ export default function Home() {
          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-[-1]"></div> {/* Gradient overlay */}
          {/* Background Image */}
          <Image
-            src="https://picsum.photos/seed/crypto_bg/1920/1080" // Placeholder image - replace with a high-quality, relevant one
-            alt="Cryptocurrency background"
+            src="https://picsum.photos/seed/crypto_bg_v2/1920/1080" // Changed seed for variety
+            alt="Abstract cryptocurrency network background"
             layout="fill"
             objectFit="cover"
             quality={85}
+            priority // Prioritize loading the hero background
             className="absolute inset-0 z-[-2] opacity-20 pointer-events-none" // Place behind other elements, low opacity
           />
 
@@ -160,7 +163,7 @@ export default function Home() {
                   <Loader2 className="h-8 w-8 animate-spin text-primary" />
                   <span className="ml-3 text-muted-foreground">Loading market data...</span>
                 </div>
-              ) : cryptoData.length > 0 ? (
+              ) : cryptoData && cryptoData.length > 0 ? ( // Added null/undefined check
                 <div className="overflow-x-auto"> {/* Ensure table is responsive */}
                     <Table>
                       <TableHeader>
@@ -285,10 +288,11 @@ export default function Home() {
              </div>
              <div className="order-1 md:order-2 relative h-80 md:h-96 group">
                 <Image
-                   src="https://picsum.photos/seed/teamwork/800/600" // High-quality placeholder
-                   alt="YardTrades Team Collaboration"
+                   src="https://picsum.photos/seed/teamwork_v2/800/600" // Changed seed for variety
+                   alt="YardTrades Team discussing financial strategies"
                    layout="fill"
                    objectFit="cover"
+                   quality={85}
                    className="rounded-lg shadow-xl transition-transform duration-500 ease-in-out group-hover:scale-105"
                 />
                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-lg opacity-50 group-hover:opacity-70 transition-opacity"></div> {/* Subtle overlay */}
