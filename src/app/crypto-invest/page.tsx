@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Copy, Bitcoin, CircleHelp } from 'lucide-react'; // Assuming Ether icon isn't in lucide-react, using Bitcoin as fallback
+import { Copy, Bitcoin, CircleHelp, ShieldCheck } from 'lucide-react'; // Import ShieldCheck
 import {
   Tooltip,
   TooltipContent,
@@ -76,7 +76,7 @@ export default function CryptoInvestPage() {
 
           {/* Important Notice */}
           <Alert variant="destructive" className="mb-8">
-              <ShieldCheck className="h-4 w-4" /> {/* Assuming ShieldCheck exists */}
+              <ShieldCheck className="h-4 w-4" /> {/* Use imported ShieldCheck */}
              <AlertTitle>Important Security Notice</AlertTitle>
              <AlertDescription>
                 Always double-check the wallet address and ensure you are sending funds on the correct network. Sending to the wrong address or network may result in permanent loss of funds. Yard Trades is not responsible for funds sent incorrectly.
@@ -144,8 +144,8 @@ export default function CryptoInvestPage() {
                 <CardContent className="space-y-3 text-sm text-muted-foreground">
                     <p>1. Please allow sufficient time for blockchain confirmations (this can vary depending on the network).</p>
                     <p>2. Once confirmed, your deposit will be credited to your Yard Trades account balance.</p>
-                    <p>3. You can then proceed to the <Button variant="link" className="p-0 h-auto inline-block" asChild><a href="/dashboard/investment">Investment page</a></Button> in your dashboard to allocate the funds to a plan.</p>
-                    <p>4. If your deposit doesn't reflect after a reasonable time, please <Button variant="link" className="p-0 h-auto inline-block" asChild><a href="/contact">contact support</a></Button> with your transaction details (Transaction ID/Hash).</p>
+                    <p>3. You can then proceed to the <Button variant="link" className="p-0 h-auto inline-block" asChild><Link href="/dashboard/investment">Investment page</Link></Button> in your dashboard to allocate the funds to a plan.</p>
+                    <p>4. If your deposit doesn't reflect after a reasonable time, please <Button variant="link" className="p-0 h-auto inline-block" asChild><Link href="/contact">contact support</Link></Button> with your transaction details (Transaction ID/Hash).</p>
                 </CardContent>
             </Card>
 
@@ -154,3 +154,4 @@ export default function CryptoInvestPage() {
     </div>
   );
 }
+
