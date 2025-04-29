@@ -112,7 +112,7 @@ export default function Home() {
          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-[-1]"></div> {/* Gradient overlay */}
          {/* Background Image */}
          <Image
-            src="https://picsum.photos/seed/crypto_bg_v2/1920/1080" // Changed seed for variety
+            src="https://picsum.photos/seed/blockchain_network/1920/1080" // Changed seed for variety
             alt="Abstract cryptocurrency network background"
             layout="fill"
             objectFit="cover"
@@ -213,8 +213,8 @@ export default function Home() {
             {investmentPlans.map((plan, index) => (
               <Card
                 key={plan.id}
-                className="bg-card border border-border/50 shadow-lg flex flex-col hover:shadow-primary/20 transition-all duration-300 group hover:-translate-y-2 transform" // Added hover effect
-                style={{ animationDelay: `${index * 100}ms` }} // Staggered animation
+                className="bg-card border border-border/50 shadow-lg flex flex-col hover:shadow-primary/20 transition-all duration-300 group hover:-translate-y-2 transform animate-fade-in-up" // Added fade-in animation
+                style={{ animationDelay: `${index * 150}ms` }} // Staggered animation delay
                >
                 <CardHeader className="bg-muted/30 p-6 border-b border-border/40">
                   <CardTitle className="text-2xl font-semibold text-primary">{plan.title}</CardTitle>
@@ -247,7 +247,7 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-secondary/40">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-             <div className="order-2 md:order-1">
+             <div className="order-2 md:order-1 animate-fade-in-up animation-delay-200"> {/* Added animation */}
                <h3 className="text-primary font-semibold mb-2 uppercase tracking-wider text-sm">About YardTrades</h3>
                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">Your Trusted Partner in Financial Growth</h2>
                <p className="text-muted-foreground mb-6 leading-relaxed">
@@ -286,9 +286,9 @@ export default function Home() {
                     <Link href="/about">More About Us</Link>
                </Button>
              </div>
-             <div className="order-1 md:order-2 relative h-80 md:h-96 group">
+             <div className="order-1 md:order-2 relative h-80 md:h-96 group animate-fade-in-up animation-delay-400"> {/* Added animation */}
                 <Image
-                   src="https://picsum.photos/seed/teamwork_v2/800/600" // Changed seed for variety
+                   src="https://picsum.photos/seed/finance_strategy_v3/800/600" // Changed seed for variety
                    alt="YardTrades Team discussing financial strategies"
                    layout="fill"
                    objectFit="cover"
@@ -311,11 +311,11 @@ export default function Home() {
                   <Bitcoin className="h-72 w-72 text-yellow-400/20" />
               </div>
            <div className="container mx-auto px-4 text-center relative z-10">
-               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white drop-shadow-md">Ready to Start Earning?</h2>
-               <p className="text-lg text-gray-200 mb-10 max-w-xl mx-auto">
+               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-white drop-shadow-md animate-fade-in-up">Ready to Start Earning?</h2>
+               <p className="text-lg text-gray-200 mb-10 max-w-xl mx-auto animate-fade-in-up animation-delay-200">
                    Join thousands of satisfied investors who trust YardTrades. Create your account today and unlock your financial potential.
                </p>
-                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fade-in-up animation-delay-400">
                    <Button size="lg" asChild className="hover:scale-105 transition-transform duration-300 shadow-lg bg-white text-primary hover:bg-gray-100">
                         <Link href="/signup">Create Free Account</Link>
                    </Button>

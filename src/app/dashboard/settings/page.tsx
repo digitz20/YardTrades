@@ -5,7 +5,7 @@ import React from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button'; // Import buttonVariants
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
@@ -23,6 +23,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
 import { User, Bell, Mail, MessageSquare, Smartphone, Loader2, Upload } from 'lucide-react'; // Added icons
+import { cn } from '@/lib/utils'; // Import cn
 
 // Define Zod schema for profile settings form validation
 const profileSettingsSchema = z.object({
@@ -337,3 +338,4 @@ export default function SettingsPage() {
     </div>
   );
 }
+

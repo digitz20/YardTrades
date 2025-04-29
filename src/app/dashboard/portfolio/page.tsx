@@ -95,7 +95,9 @@ export default function PortfolioPage() {
             <div className="text-3xl font-bold text-primary">${portfolioData.availableBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
             <div className="flex gap-3">
                 <Button asChild><Link href="/crypto-invest">Deposit Funds</Link></Button>
-                <Button variant="outline" asChild><Link href="/dashboard/withdraw">Withdraw Funds</Link></Button> {/* Add withdraw page link */}
+                {/* Removed link to non-existent withdraw page */}
+                {/* <Button variant="outline" asChild><Link href="/dashboard/withdraw">Withdraw Funds</Link></Button> */}
+                <Button variant="outline" onClick={() => alert('Withdraw functionality placeholder')}>Withdraw Funds</Button>
             </div>
         </CardContent>
       </Card>
@@ -164,3 +166,4 @@ export default function PortfolioPage() {
     </div>
   );
 }
+
