@@ -83,16 +83,16 @@ export default function Home() {
         />
         <div className="absolute inset-0 bg-black/50 z-0"></div> {/* Dark overlay for text contrast */}
          <div className="container mx-auto px-4 relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+           {/* Removed grid layout, content centered or takes full width */}
+           <div className="max-w-3xl mx-auto text-center md:text-left"> {/* Centered content for single column */}
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 leading-tight text-white shadow-lg">
                 Secure & Profitable <span className="text-primary">Investments</span> Platform
               </h1>
               <p className="text-lg md:text-xl text-gray-200 mb-8">
                 Invest with confidence. YardTrades offers secure, high-yield investment plans tailored for your financial growth. Start building your future today.
               </p>
-              {/* Updated Button Container */}
-              <div className="flex flex-wrap gap-4">
+              {/* Updated Button Container: Using flex and centering */}
+              <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
                 {/* Button: "Start Trading" links to signup */}
                 <Button size="lg" asChild>
                   <Link href="/signup">Start Trading</Link>
@@ -101,7 +101,7 @@ export default function Home() {
                 <Button size="lg" variant="outline" asChild className="border-gray-300 text-gray-100 hover:bg-white/10 hover:text-white">
                    <Link href="/#plans">View Trading Plans</Link>
                 </Button>
-                {/* Button: Functional Invest in Crypto button - MOVED HERE */}
+                {/* Button: Functional Invest in Crypto button */}
                 <Button size="lg" variant="secondary" asChild>
                     <Link href="/crypto-invest">
                          <Bitcoin className="mr-2 h-5 w-5" /> Invest in Crypto
@@ -109,18 +109,8 @@ export default function Home() {
                 </Button>
               </div>
             </div>
-             <div className="hidden md:block relative h-80 md:h-96">
-                {/* Modern Crypto/Finance related image */}
-                <Image
-                    src="https://picsum.photos/seed/finance/600/400" // Placeholder image - Replace with relevant one
-                    alt="Modern finance illustration"
-                    layout="fill"
-                    objectFit="contain" // Use contain or cover based on image aspect ratio
-                    className="rounded-lg"
-                 />
-            </div>
-          </div>
-        </div>
+             {/* Image div removed */}
+         </div>
       </section>
 
        {/* Live Market Data Section */}
