@@ -29,9 +29,9 @@ const forexPairs: CurrencyPair[] = [
 export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promise<CurrencyPair[]> {
   // Only fetch live data for crypto
  if (type === 'crypto') {
-    console.log(`Attempting to fetch live ${type} market data...`);
+    console.log(`Attempting to fetch live ${type} market data from CoinGecko...`);
     try {
-      // Using CoinGecko API as CoinAPI requires an API key which might not be set up
+      // Using CoinGecko API as it has free public endpoints
       const assetsToFetch = ['bitcoin', 'ethereum', 'binancecoin', 'solana', 'dogecoin'];
       const apiUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${assetsToFetch.join(',')}&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en`;
       console.log("API URL:", apiUrl);
@@ -48,10 +48,10 @@ export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promis
       }
 
       const data = await response.json();
-      console.log("API Response Data:", data);
+      console.log("CoinGecko API Response Data:", data);
 
       const processedData: CurrencyPair[] = data.map((item: any) => {
-        console.log("Mapping item:", item);
+        console.log("Mapping CoinGecko item:", item);
         const symbol = (item.symbol + 'USD').toUpperCase(); // e.g., BTCUSD
         const name = item.name + " / US Dollar"; // e.g., Bitcoin / US Dollar
         const price = item.current_price;
@@ -69,21 +69,21 @@ export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promis
           name: name,
         };
       })
-      .filter((item: CurrencyPair | null): item is CurrencyPair => item !== null) // Filter out any null items
-      // Limit to a reasonable number, e.g., the first 5 results
-      .slice(0, 5);
+      .filter((item: CurrencyPair | null): item is CurrencyPair => item !== null); // Filter out any null items
 
+        // We don't strictly need to slice here unless CoinGecko returns more than we asked for
+        // const limitedData = processedData.slice(0, assetsToFetch.length);
 
-        if (processedData.length < assetsToFetch.length){
-          console.warn("CoinGecko did not return all the assets expected. Using fallback crypto data.");
-          return cryptoPairs; // Fallback to mock if API doesn't return enough data
+        if (processedData.length === 0){
+           console.warn("CoinGecko returned no valid data for the requested assets. Using fallback crypto data.");
+           return cryptoPairs; // Fallback to mock if API doesn't return valid data
         }
 
-        console.log("Successfully fetched and processed live crypto data:", processedData);
+        console.log("Successfully fetched and processed live crypto data from CoinGecko:", processedData);
         return processedData;
 
     } catch (error) {
-      console.error("Error fetching or processing live market data:", error);
+      console.error("Error fetching or processing live market data from CoinGecko:", error);
       console.log("Falling back to mock crypto data.");
       return cryptoPairs; // Fallback to mock data on any error
     }
@@ -97,6 +97,3 @@ export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promis
   console.log("Unknown type requested, returning mock crypto data.");
   return cryptoPairs;
 }
-
-// Removed getHistoricalData as it's not used in the current UI.
-// Removed MarketMode type as it's no longer used.
