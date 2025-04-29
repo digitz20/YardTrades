@@ -129,9 +129,7 @@ export default function LoginPage() {
         </CardContent>
          <CardFooter className="text-center text-sm text-muted-foreground justify-center">
             Don't have an account?{' '}
-           <Button variant="link" className="p-0 h-auto ml-1 text-primary" asChild>
-               <Link href="/signup">Sign Up</Link>
-            </Button>
+           <Button variant="link" className="p-0 h-auto ml-1 text-primary" asChild><Link href="/signup">Sign Up</Link></Button>
          </CardFooter>
       </Card>
     </div>

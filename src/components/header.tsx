@@ -52,12 +52,8 @@ export function Header() {
 
         {/* Login/Sign Up Buttons */}
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <Button variant="outline" size="sm" asChild>
-            <Link href="/login">Login</Link>
-          </Button>
-          <Button size="sm" asChild>
-             <Link href="/signup">Sign Up</Link>
-          </Button>
+          <Button variant="outline" size="sm" asChild><Link href="/login">Login</Link></Button>
+          <Button size="sm" asChild><Link href="/signup">Sign Up</Link></Button>
           {/* Mobile Menu Trigger (Optional - Add later if needed) */}
           {/* <Button variant="outline" size="icon" className="md:hidden">...</Button> */}
         </div>

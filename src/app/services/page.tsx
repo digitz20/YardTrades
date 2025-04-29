@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -102,9 +103,7 @@ export default function ServicesPage() {
                        <span>Unparalleled customer support</span>
                    </li>
                </ul>
-                 <Button asChild>
-                   <Link href="/#plans">View Investment Plans</Link>
-                 </Button>
+                 <Button asChild><Link href="/#plans">View Investment Plans</Link></Button>
              </div>
              <div>
                  <Image
@@ -126,9 +125,7 @@ export default function ServicesPage() {
                <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
                    Ready to experience the Yard Trades difference? Partner with us and let our services pave the way for your financial success.
                </p>
-               <Button size="lg" asChild>
-                   <Link href="/signup">Get Started Today</Link>
-               </Button>
+               <Button size="lg" asChild><Link href="/signup">Get Started Today</Link></Button>
            </div>
        </section>
     </div>

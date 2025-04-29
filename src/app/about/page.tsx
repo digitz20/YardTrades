@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -100,9 +101,7 @@ export default function AboutPage() {
                 <p className="text-muted-foreground mb-6">
                  Over the years, we've grown into a trusted name in the investment world, continually innovating and adapting to market dynamics while staying true to our core values. Our journey is defined by the success stories of our clients and our unwavering dedication to their financial well-being.
                </p>
-                 <Button variant="outline" asChild>
-                   <Link href="/services">Explore Our Services</Link>
-                 </Button>
+                 <Button variant="outline" asChild><Link href="/services">Explore Our Services</Link></Button>
              </div>
              <div className="relative h-80 md:h-96">
                  <Image
@@ -188,9 +187,7 @@ export default function AboutPage() {
                <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
                    Become part of a growing community of successful investors. Let our team guide you towards achieving your financial aspirations.
                </p>
-               <Button size="lg" asChild>
-                   <Link href="/signup">Get Started</Link>
-               </Button>
+               <Button size="lg" asChild><Link href="/signup">Get Started</Link></Button>
            </div>
        </section>
     </div>

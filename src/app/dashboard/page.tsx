@@ -72,12 +72,8 @@ export default function DashboardPage() {
                  <CardDescription>Start a new investment or manage your portfolio.</CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col sm:flex-row gap-4">
-                 <Button asChild>
-                    <Link href="/dashboard/investment">New Investment</Link>
-                 </Button>
-                 <Button variant="outline" asChild>
-                    <Link href="/dashboard/portfolio">View Portfolio</Link>
-                </Button>
+                 <Button asChild><Link href="/dashboard/investment">New Investment</Link></Button>
+                 <Button variant="outline" asChild><Link href="/dashboard/portfolio">View Portfolio</Link></Button>
             </CardContent>
          </Card>
 
@@ -89,9 +85,7 @@ export default function DashboardPage() {
              <CardContent>
                  {/* Placeholder for recent transactions list */}
                  <p className="text-sm text-muted-foreground">No recent transactions to display.</p>
-                 <Button variant="link" className="p-0 h-auto mt-2" asChild>
-                    <Link href="/dashboard/transactions">View All Transactions</Link>
-                 </Button>
+                 <Button variant="link" className="p-0 h-auto mt-2" asChild><Link href="/dashboard/transactions">View All Transactions</Link></Button>
              </CardContent>
          </Card>
       </div>

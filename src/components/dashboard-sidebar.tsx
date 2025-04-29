@@ -52,20 +52,20 @@ export function DashboardSidebar() {
       {/* Navigation */}
       <nav className="flex-grow space-y-1">
         {navItems.map((item) => (
-          <Link key={item.name} href={item.href} passHref>
-             <Button
-              variant={pathname === item.href ? 'secondary' : 'ghost'}
-              className={cn(
-                'w-full justify-start',
-                pathname === item.href
-                  ? 'text-primary font-semibold'
-                  : 'text-muted-foreground'
-              )}
-             >
+          <Button
+            key={item.name}
+            asChild // Use Button asChild to wrap Link
+            variant={pathname === item.href ? 'secondary' : 'ghost'}
+            className={cn(
+              'w-full justify-start',
+              pathname === item.href
+                ? 'text-primary font-semibold'
+                : 'text-muted-foreground'
+            )}
+           ><Link href={item.href}> {/* Link is the direct child */}
               <item.icon className="mr-2 h-4 w-4" />
               {item.name}
-            </Button>
-          </Link>
+            </Link></Button>
         ))}
       </nav>
 

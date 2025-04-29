@@ -151,9 +151,7 @@ export default function SignupPage() {
                       <div className="space-y-1 leading-none">
                         <FormLabel className="text-sm font-normal">
                           I agree to the{' '}
-                           <Button variant="link" className="p-0 h-auto text-primary" asChild>
-                             <Link href="/terms" target="_blank">Terms and Conditions</Link>
-                           </Button>
+                           <Button variant="link" className="p-0 h-auto text-primary" asChild><Link href="/terms" target="_blank">Terms and Conditions</Link></Button>
                         </FormLabel>
                          <FormMessage />
                       </div>
@@ -170,9 +168,7 @@ export default function SignupPage() {
         </CardContent>
         <CardFooter className="text-center text-sm text-muted-foreground justify-center">
           Already have an account?{' '}
-          <Button variant="link" className="p-0 h-auto ml-1 text-primary" asChild>
-            <Link href="/login">Log In</Link>
-          </Button>
+          <Button variant="link" className="p-0 h-auto ml-1 text-primary" asChild><Link href="/login">Log In</Link></Button>
         </CardFooter>
       </Card>
     </div>

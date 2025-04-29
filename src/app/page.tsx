@@ -72,18 +72,21 @@ export default function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary/20 via-background to-background py-20 md:py-32 text-foreground overflow-hidden">
-         {/* Placeholder for Bitcoin Animation 1 */}
-         <div className="absolute top-1/4 left-10 opacity-10 animate-pulse">
-             {/* Replace with actual animation component or SVG */}
+         {/* Animated Bitcoin Icons */}
+         <div className="absolute top-1/4 left-10 opacity-10 animate-pulse duration-[3000ms]">
              <Bitcoin className="h-16 w-16 text-yellow-400/50" />
          </div>
-         {/* Placeholder for Bitcoin Animation 2 */}
-         <div className="absolute bottom-1/4 right-10 opacity-10 animate-bounce">
-              {/* Replace with actual animation component or SVG */}
+         <div className="absolute bottom-1/4 right-10 opacity-10 animate-bounce delay-500">
              <Bitcoin className="h-24 w-24 text-yellow-400/50" />
          </div>
+          <div className="absolute top-1/3 right-1/4 opacity-5 animate-ping delay-1000">
+             <Bitcoin className="h-12 w-12 text-yellow-400/30" />
+         </div>
+         <div className="absolute bottom-1/3 left-1/4 opacity-5 animate-pulse delay-1500 duration-[4000ms]">
+             <Bitcoin className="h-8 w-8 text-yellow-400/30" />
+         </div>
         {/* Subtle pattern overlay */}
-        <div className="absolute inset-0 bg-[radial-gradient(#ffffff11_1px,transparent_1px)] [background-size:16px_16px] z-0 opacity-50"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(theme(colors.primary/0.05)_1px,transparent_1px)] [background-size:16px_16px] z-0 opacity-50"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-0"></div> {/* Gradient overlay for better text contrast */}
          <div className="container mx-auto px-4 relative z-10">
            <div className="max-w-3xl mx-auto text-center"> {/* Centered content */}
@@ -96,19 +99,13 @@ export default function Home() {
               {/* Updated Button Container: Using flex and centering */}
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                  {/* Button: Functional Invest in Crypto button */}
-                 <Button size="lg" variant="secondary" asChild>
-                    <Link href="/crypto-invest">
+                 <Button size="lg" variant="secondary" asChild className="hover:scale-105 transition-transform"><Link href="/crypto-invest">
                          <Bitcoin className="mr-2 h-5 w-5" /> Invest in Crypto
-                    </Link>
-                </Button>
+                    </Link></Button>
                 {/* Button: "Start Trading" links to signup */}
-                <Button size="lg" asChild>
-                  <Link href="/signup">Start Trading</Link>
-                </Button>
+                <Button size="lg" asChild className="hover:scale-105 transition-transform"><Link href="/signup">Start Trading</Link></Button>
                 {/* Button: "View Trading Plans" links to plans section */}
-                <Button size="lg" variant="outline" asChild className="border-gray-300 text-gray-100 hover:bg-white/10 hover:text-white">
-                   <Link href="/#plans">View Trading Plans</Link>
-                </Button>
+                <Button size="lg" variant="outline" asChild className="border-gray-300 text-gray-100 hover:bg-white/10 hover:text-white hover:scale-105 transition-transform"><Link href="/#plans">View Trading Plans</Link></Button>
               </div>
             </div>
          </div>
@@ -177,7 +174,10 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {investmentPlans.map((plan) => (
-              <Card key={plan.id} className="bg-card border border-border/50 shadow-lg flex flex-col hover:shadow-primary/20 transition-shadow duration-300">
+              <Card
+                key={plan.id}
+                className="bg-card border border-border/50 shadow-lg flex flex-col hover:shadow-primary/20 transition-all duration-300 group hover:scale-105 transform" // Added group and hover:scale-105
+               >
                 <CardHeader className="bg-muted/30 p-6">
                   <CardTitle className="text-2xl font-semibold text-primary">{plan.title}</CardTitle>
                    <CardDescription>Min: {plan.minDeposit} | Max: {plan.maxDeposit}</CardDescription>
@@ -195,7 +195,7 @@ export default function Home() {
                        ))}
                      </ul>
                    </div>
-                   <Button className="w-full mt-auto" asChild>
+                   <Button className="w-full mt-auto group-hover:bg-primary/90 transition-colors" asChild>
                        {/* Updated Button: Links to signup with plan pre-selection if needed */}
                        <Link href={`/signup?plan=${plan.id}`}>Invest Now</Link>
                    </Button>
@@ -217,31 +217,29 @@ export default function Home() {
                  YardTrades is a leading investment company committed to providing transparent and profitable opportunities. Our team of experts utilizes cutting-edge strategies to maximize your returns while ensuring the security of your funds.
                </p>
                <ul className="space-y-4 mb-8">
-                  <li className="flex items-start gap-3">
-                      <DollarSign className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
+                  <li className="flex items-start gap-3 group"> {/* Added group */}
+                      <DollarSign className="h-6 w-6 text-primary mt-1 flex-shrink-0 group-hover:animate-pulse transition-transform" /> {/* Added hover animation */}
                       <div>
                          <h4 className="font-semibold">Competitive Returns</h4>
                          <p className="text-sm text-muted-foreground">Benefit from our high-yield plans designed for optimal profitability.</p>
                      </div>
                   </li>
-                   <li className="flex items-start gap-3">
-                      <BarChart className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
+                   <li className="flex items-start gap-3 group"> {/* Added group */}
+                      <BarChart className="h-6 w-6 text-primary mt-1 flex-shrink-0 group-hover:animate-pulse transition-transform" /> {/* Added hover animation */}
                        <div>
                           <h4 className="font-semibold">Expert Management</h4>
                           <p className="text-sm text-muted-foreground">Our experienced professionals manage your investments effectively.</p>
                       </div>
                    </li>
-                   <li className="flex items-start gap-3">
-                      <Users className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
+                   <li className="flex items-start gap-3 group"> {/* Added group */}
+                      <Users className="h-6 w-6 text-primary mt-1 flex-shrink-0 group-hover:animate-pulse transition-transform" /> {/* Added hover animation */}
                        <div>
                           <h4 className="font-semibold">Client-Focused</h4>
                           <p className="text-sm text-muted-foreground">We prioritize your financial success and provide dedicated support.</p>
                        </div>
                    </li>
                </ul>
-               <Button variant="outline" asChild>
-                 <Link href="/about">More About Us</Link>
-               </Button>
+               <Button variant="outline" asChild className="hover:scale-105 transition-transform"><Link href="/about">More About Us</Link></Button>
              </div>
              <div className="order-1 md:order-2 relative h-80 md:h-96">
                 {/* Replace with a relevant company or team image */}
@@ -260,9 +258,12 @@ export default function Home() {
        {/* Call to Action Section */}
        <section className="py-16 md:py-24 bg-primary/10 relative overflow-hidden">
             {/* Placeholder for Bitcoin Animation 3 */}
-            <div className="absolute top-10 left-1/2 transform -translate-x-1/2 opacity-5 animate-ping">
-                {/* Replace with actual animation component or SVG */}
+            <div className="absolute top-10 left-1/2 transform -translate-x-1/2 opacity-5 animate-ping delay-2000 duration-[5000ms]">
                 <Bitcoin className="h-12 w-12 text-yellow-400/30" />
+            </div>
+             {/* Additional floating animation */}
+            <div className="absolute bottom-10 right-1/4 opacity-10 animate-pulse delay-2500 duration-[3500ms]">
+                <TrendingUp className="h-16 w-16 text-green-400/40" />
             </div>
             {/* Optional subtle background texture */}
             <div className="absolute inset-0 opacity-5 bg-[url('/path/to/texture.svg')]"></div>
@@ -272,9 +273,7 @@ export default function Home() {
                    Join thousands of satisfied investors who trust YardTrades. Create your account today.
                </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
-                   <Button size="lg" asChild>
-                       <Link href="/signup">Create Free Account</Link>
-                   </Button>
+                   <Button size="lg" asChild className="hover:scale-105 transition-transform"><Link href="/signup">Create Free Account</Link></Button>
                    {/* Invest in Crypto button was MOVED to Hero section */}
                </div>
            </div>
