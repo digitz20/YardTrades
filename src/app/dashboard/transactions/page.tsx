@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { ArrowDownLeft, ArrowUpRight, CircleDollarSign, Filter, Download } from 'lucide-react'; // Added Filter, Download
-import { format } from 'date-fns';
+import { format } from 'date-fns'; // Import date-fns format function
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input'; // For potential filtering
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // For filtering/sorting
@@ -141,7 +141,8 @@ export default function TransactionsPage() {
                               {isPositive ? '+' : ''}
                               ${txn.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </TableCell>
-                            <TableCell className="text-muted-foreground py-4">{format(txn.date, 'PP p')}</TableCell> {/* Format date with time */}
+                             {/* Use date-fns format for consistent date/time */}
+                            <TableCell className="text-muted-foreground py-4">{format(txn.date, 'PPp')}</TableCell> {/* 'PPp' includes date and time */}
                             <TableCell className="text-center pr-6 py-4">
                               <Badge variant={getStatusVariant(txn.status)} className="capitalize text-xs">
                                 {txn.status}

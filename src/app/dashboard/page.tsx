@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Progress } from '@/components/ui/progress'; // Import Progress
 import { Badge } from '@/components/ui/badge'; // Import Badge
+import { format } from 'date-fns'; // Import date-fns format function
 
 // Mock Data (Replace with actual data fetching logic using state/hooks)
 const summaryData = {
@@ -147,9 +148,10 @@ export default function DashboardPage() {
                                      {txn.amount > 0 ? '+' : ''}${Math.abs(txn.amount).toLocaleString()}
                                  </span>
                                   <p className="text-xs text-muted-foreground">
-                                       {txn.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                       {/* Use date-fns format for consistency */}
+                                       {format(txn.date, 'p')} {/* 'p' is for localized time */}
                                        {' - '}
-                                       {txn.date.toLocaleDateString([], { month: 'short', day: 'numeric' })}
+                                       {format(txn.date, 'MMM d')} {/* 'MMM d' for abbreviated month and day */}
                                    </p>
                                </div>
                            </li>

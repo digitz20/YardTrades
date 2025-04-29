@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/form";
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'; // Import Alert components
+import { format } from 'date-fns'; // Import date-fns format function
 
 // Define Zod schema for password change form validation
 const passwordChangeSchema = z.object({
@@ -261,7 +262,8 @@ export default function SecurityPage() {
                     <tbody>
                         {securityStatus.loginHistory.map((login) => (
                             <tr key={login.id} className="border-b last:border-b-0 hover:bg-muted/20 transition-colors">
-                                <td className="p-3 text-muted-foreground">{login.date.toLocaleString()}</td>
+                                {/* Use date-fns format for consistency */}
+                                <td className="p-3 text-muted-foreground">{format(login.date, 'PPp')}</td>
                                 <td className="p-3 text-muted-foreground hidden md:table-cell">{login.location}</td>
                                 <td className="p-3 text-muted-foreground hidden sm:table-cell">{login.device}</td>
                                 <td className="p-3 text-center">

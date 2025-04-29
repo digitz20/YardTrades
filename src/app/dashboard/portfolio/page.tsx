@@ -9,6 +9,7 @@ import { DollarSign, TrendingUp, BarChart, CheckCircle, Clock } from 'lucide-rea
 import { Progress } from '@/components/ui/progress'; // Import Progress
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { format } from 'date-fns'; // Import date-fns format function
 
 // Mock Data (Replace with actual data fetching logic)
 const portfolioData = {
@@ -25,11 +26,11 @@ const portfolioData = {
   availableBalance: 3895.67, // Example available balance (Total Value - Active Investments Current Value)
 };
 
-// Helper function to format dates
+// Helper function to format dates using date-fns
 const formatDate = (date: Date | string): string => {
     if (!date) return '-';
     const d = typeof date === 'string' ? new Date(date) : date;
-    return d.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    return format(d, 'PP'); // 'PP' is for localized date, e.g., Jul 15, 2024
 }
 
 // Helper function to get status badge variant
@@ -165,4 +166,3 @@ export default function PortfolioPage() {
     </div>
   );
 }
-
