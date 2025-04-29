@@ -78,7 +78,7 @@ export default function TransactionsPage() {
                           {txn.type === 'Withdrawal' || txn.type === 'Investment' ? '-' : ''}
                           ${txn.amount.toLocaleString()}
                         </TableCell>
-                        <TableCell>{format(txn.date, 'PPp')}</TableCell> {/* Format date */}
+                        <TableCell>{format(txn.date, 'PPp')}</TableCell>{/* Format date */}
                         <TableCell className="text-center">
                           <Badge variant={getStatusVariant(txn.status)}>
                             {txn.status}
