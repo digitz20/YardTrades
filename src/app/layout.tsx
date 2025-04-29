@@ -1,14 +1,11 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google'; // Use a standard sans-serif font
 import './globals.css';
 import { cn } from "@/lib/utils";
-import { Toaster } from "@/components/ui/toaster"; // Import Toaster
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'Trade Insights',
-  description: 'Market data insights for Crypto and Forex',
+  title: 'NovaxTrades Clone', // Updated Title
+  description: 'Crypto Trading Information Dashboard', // Updated Description
 };
 
 export default function RootLayout({
@@ -17,15 +14,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // Apply dark theme by default via globals.css @layer base html directive
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          inter.variable
+          "min-h-screen bg-background font-sans antialiased"
+          // Removed Inter font variable application as it wasn't strictly necessary for the new design
         )}
       >
         {children}
-        <Toaster /> {/* Add Toaster component */}
+        <Toaster />
       </body>
     </html>
   );

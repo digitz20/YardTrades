@@ -11,9 +11,13 @@ export interface CurrencyPair {
    */
   price: number;
   /**
-   * The percentage change in price over a certain period.
+   * The percentage change in price over a certain period (e.g., 24h).
    */
   percentageChange: number;
+   /**
+   * Optional full name of the pair (e.g., Bitcoin / US Dollar).
+   */
+   name?: string;
 }
 
 /**
@@ -32,5 +36,6 @@ export interface HistoricalDataPoint {
 
 /**
  * Represents the mode of the application (crypto or forex).
+ * (Currently less relevant with the new design but kept for potential future use)
  */
 export type MarketMode = 'crypto' | 'forex';

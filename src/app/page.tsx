@@ -1,62 +1,42 @@
 "use client";
 
-import React, { useState, useCallback } from 'react';
-import type { MarketMode } from '@/types';
-import { ModeSwitcher } from '@/components/mode-switcher';
-import { MarketDataTable } from '@/components/market-data-table';
-import { TrendChart } from '@/components/trend-chart';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
+import React from 'react';
+import { Header } from '@/components/header';
+import { ChartCard } from '@/components/chart-card';
+import { ChatWidgetPlaceholder } from '@/components/chat-widget-placeholder';
+
+// Define the pairs to display based on the screenshot
+const displayPairs = ['BTCUSDT', 'ETHUSDT', 'BNBUSDT'];
 
 export default function Home() {
-  const [mode, setMode] = useState<MarketMode>('crypto');
-  const [selectedPair, setSelectedPair] = useState<string | null>(null); // Default to first crypto pair on initial load
-
-  // Set initial selected pair when mode changes or on first load
-  React.useEffect(() => {
-    setSelectedPair(null); // Reset selection when mode changes
-    // You could automatically select the first item here if desired
-    // e.g., based on the default data fetched in MarketDataTable
-  }, [mode]);
-
-  const handleModeChange = useCallback((newMode: MarketMode) => {
-    setMode(newMode);
-  }, []);
-
- const handleSelectPair = useCallback((symbol: string) => {
-    setSelectedPair(symbol);
-  }, []);
-
-
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start p-4 sm:p-8 lg:p-12 bg-secondary/30">
-      <div className="z-10 w-full max-w-6xl items-center justify-between font-mono text-sm lg:flex mb-8">
-        <h1 className="text-2xl sm:text-3xl font-semibold text-primary mb-4 lg:mb-0">
-          Trade Insights Dashboard
-        </h1>
-        <ModeSwitcher currentMode={mode} onModeChange={handleModeChange} />
-      </div>
-
-      <div className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-1 shadow-md rounded-lg overflow-hidden">
-           <CardHeader>
-             <CardTitle className="text-xl">{mode === 'crypto' ? 'Crypto Markets' : 'Forex Markets'}</CardTitle>
-          </CardHeader>
-           <CardContent className="p-0">
-            <MarketDataTable mode={mode} onSelectPair={handleSelectPair} selectedPair={selectedPair} />
-          </CardContent>
-        </Card>
-
-        <div className="lg:col-span-2 shadow-md rounded-lg bg-card">
-           <TrendChart symbol={selectedPair} />
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <Header />
+      <main className="flex-grow container mx-auto px-4 py-8">
+        {/* Chart Cards Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {displayPairs.map((symbol) => (
+            <ChartCard key={symbol} symbol={symbol} />
+          ))}
         </div>
-      </div>
 
-        <footer className="mt-12 text-center text-muted-foreground text-xs">
-            <Separator className="my-4 w-1/2 mx-auto" />
-            Data is mocked for demonstration purposes. Not financial advice.
-            <p>&copy; {new Date().getFullYear()} Trade Insights. All rights reserved.</p>
-        </footer>
-    </main>
+        {/* Hero Text Section */}
+        <section className="text-center mb-16">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+            Built By Traders
+          </h1>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-primary">
+            For Traders
+          </h2>
+        </section>
+      </main>
+
+      <ChatWidgetPlaceholder />
+
+      <footer className="py-6 text-center text-muted-foreground text-xs border-t border-border mt-auto">
+        <p>&copy; {new Date().getFullYear()} NovaxTrades Clone. All rights reserved.</p>
+        <p className="mt-1">Data is mocked for demonstration purposes. Not financial advice.</p>
+      </footer>
+    </div>
   );
 }
