@@ -21,63 +21,65 @@ const forexPairs: CurrencyPair[] = [
 
 /**
  * Asynchronously retrieves market data.
- * Attempts to fetch live data from CoinAPI, falling back to mock data on error.
+ * Attempts to fetch live data from CoinGecko, falling back to mock data on error.
  *
  * @param type The type of market data to retrieve ('crypto' or 'forex'). Defaults to 'crypto'.
  * @returns A promise that resolves to an array of CurrencyPair objects.
  */
 export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promise<CurrencyPair[]> {
   // Only fetch live data for crypto
-  if (type === 'crypto') {
+ if (type === 'crypto') {
     console.log(`Attempting to fetch live ${type} market data...`);
     try {
-      const apiKey = process.env.COINAPI_API_KEY; // Ensure this is set in your .env file
-      if (!apiKey) {
-        console.warn("COINAPI_API_KEY not found in environment variables. Falling back to mock data.");
-        return cryptoPairs;
-      }
-
-      // Example API endpoint (adjust based on your chosen API and desired data)
-      // This example fetches data for specific assets, you might want a different endpoint
-      const assetsToFetch = ['BTC', 'ETH', 'BNB', 'SOL', 'DOGE']; // Example assets
-      const apiUrl = `https://rest.coinapi.io/v1/assets?filter_asset_id=${assetsToFetch.join(',')}`;
+      // Using CoinGecko API as CoinAPI requires an API key which might not be set up
+      const assetsToFetch = ['bitcoin', 'ethereum', 'binancecoin', 'solana', 'dogecoin'];
+      const apiUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${assetsToFetch.join(',')}&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en`;
+      console.log("API URL:", apiUrl);
 
       const response = await fetch(apiUrl, {
-        headers: {
-          'X-CoinAPI-Key': apiKey,
-          'Accept': 'application/json',
-        },
+        method: 'GET',
+        // No API key needed for this public CoinGecko endpoint
       });
 
       if (!response.ok) {
-        // Log specific error from API if available
         const errorBody = await response.text();
-        console.error(`CoinAPI HTTP error! status: ${response.status}, body: ${errorBody}`);
+        console.error(`CoinGecko HTTP error! status: ${response.status}, body: ${errorBody}`);
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
+      console.log("API Response Data:", data);
 
-      // Process the data to match the CurrencyPair interface
-      // Note: CoinAPI free tier might not provide percentage change directly.
-      // Using volume_1day as a placeholder for percentageChange here. Adjust as needed.
-      const processedData: CurrencyPair[] = data
-        .filter((item: any) => item.price_usd !== undefined && item.type_is_crypto === 1) // Filter for crypto assets with USD price
-        .map((item: any) => ({
-          symbol: item.asset_id + 'USD', // Assume price is in USD, create symbol like BTCUSD
-          price: item.price_usd,
-          // Free CoinAPI likely won't give % change easily. Use volume or a fixed value.
-          // Using volume_1day_usd as a placeholder - NOT accurate percentage change.
-          percentageChange: item.volume_1day_usd ? (item.volume_1day_usd / 1000000) % 5 : Math.random() * 5 - 2.5, // Placeholder calculation
-          name: item.name,
-        }))
-        // Limit to a reasonable number, e.g., the first 5 results
-        .slice(0, 5);
+      const processedData: CurrencyPair[] = data.map((item: any) => {
+        console.log("Mapping item:", item);
+        const symbol = (item.symbol + 'USD').toUpperCase(); // e.g., BTCUSD
+        const name = item.name + " / US Dollar"; // e.g., Bitcoin / US Dollar
+        const price = item.current_price;
+        const percentageChange = item.price_change_percentage_24h; // Use the 24h percentage change
 
-        // If API returns fewer than expected assets, supplement with mock data? (Optional)
-        // if (processedData.length < cryptoPairs.length) { ... }
+        if (typeof price !== 'number' || typeof percentageChange !== 'number') {
+          console.warn(`Invalid data types for ${symbol}: price=${price}, change=${percentageChange}. Skipping.`);
+          return null; // Skip this item if data is invalid
+        }
 
-        console.log("Successfully fetched and processed live crypto data.");
+        return {
+          symbol: symbol,
+          price: price,
+          percentageChange: percentageChange,
+          name: name,
+        };
+      })
+      .filter((item: CurrencyPair | null): item is CurrencyPair => item !== null) // Filter out any null items
+      // Limit to a reasonable number, e.g., the first 5 results
+      .slice(0, 5);
+
+
+        if (processedData.length < assetsToFetch.length){
+          console.warn("CoinGecko did not return all the assets expected. Using fallback crypto data.");
+          return cryptoPairs; // Fallback to mock if API doesn't return enough data
+        }
+
+        console.log("Successfully fetched and processed live crypto data:", processedData);
         return processedData;
 
     } catch (error) {
@@ -95,3 +97,6 @@ export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promis
   console.log("Unknown type requested, returning mock crypto data.");
   return cryptoPairs;
 }
+
+// Removed getHistoricalData as it's not used in the current UI.
+// Removed MarketMode type as it's no longer used.
