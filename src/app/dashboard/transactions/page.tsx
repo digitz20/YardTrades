@@ -12,15 +12,16 @@ import { Input } from '@/components/ui/input'; // For potential filtering
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // For filtering/sorting
 
 // Mock Data (Replace with actual data fetching logic, potentially with pagination)
+// Use fixed dates to avoid hydration issues
 const allTransactionsData = [
-  { id: 'txn001', type: 'Deposit', method: 'Crypto (BTC)', amount: 1000.00, date: new Date(2024, 6, 15, 10, 30), status: 'Completed' },
-  { id: 'txn002', type: 'Investment', method: 'Gold Plan', amount: -500.00, date: new Date(2024, 6, 16, 9, 0), status: 'Active' }, // Note: Investment is a negative flow from balance
-  { id: 'txn003', type: 'Withdrawal', method: 'Bank Transfer', amount: -250.00, date: new Date(2024, 6, 18, 14, 0), status: 'Completed' },
-  { id: 'txn004', type: 'Deposit', method: 'Crypto (ETH)', amount: 500.00, date: new Date(2024, 6, 20, 11, 15), status: 'Pending' },
-  { id: 'txn005', type: 'Profit Payout', method: 'Silver Plan', amount: 120.50, date: new Date(2024, 6, 22, 16, 45), status: 'Completed' },
-  { id: 'txn006', type: 'Investment', method: 'Starter Plan', amount: -100.00, date: new Date(2024, 5, 10, 8, 0), status: 'Completed' },
-  { id: 'txn007', type: 'Deposit', method: 'Card Deposit', amount: 200.00, date: new Date(2024, 5, 5, 12, 0), status: 'Failed' },
-  { id: 'txn008', type: 'Withdrawal', method: 'Crypto (BTC)', amount: -150.75, date: new Date(2024, 4, 28, 10, 0), status: 'Completed' },
+  { id: 'txn001', type: 'Deposit', method: 'Crypto (BTC)', amount: 1000.00, date: new Date(2024, 6, 15, 10, 30), status: 'Completed' }, // July 15, 2024, 10:30 AM
+  { id: 'txn002', type: 'Investment', method: 'Gold Plan', amount: -500.00, date: new Date(2024, 6, 16, 9, 0), status: 'Active' }, // July 16, 2024, 9:00 AM
+  { id: 'txn003', type: 'Withdrawal', method: 'Bank Transfer', amount: -250.00, date: new Date(2024, 6, 18, 14, 0), status: 'Completed' }, // July 18, 2024, 2:00 PM
+  { id: 'txn004', type: 'Deposit', method: 'Crypto (ETH)', amount: 500.00, date: new Date(2024, 6, 20, 11, 15), status: 'Pending' }, // July 20, 2024, 11:15 AM
+  { id: 'txn005', type: 'Profit Payout', method: 'Silver Plan', amount: 120.50, date: new Date(2024, 6, 22, 16, 45), status: 'Completed' }, // July 22, 2024, 4:45 PM
+  { id: 'txn006', type: 'Investment', method: 'Starter Plan', amount: -100.00, date: new Date(2024, 5, 10, 8, 0), status: 'Completed' }, // June 10, 2024, 8:00 AM
+  { id: 'txn007', type: 'Deposit', method: 'Card Deposit', amount: 200.00, date: new Date(2024, 5, 5, 12, 0), status: 'Failed' }, // June 5, 2024, 12:00 PM
+  { id: 'txn008', type: 'Withdrawal', method: 'Crypto (BTC)', amount: -150.75, date: new Date(2024, 4, 28, 10, 0), status: 'Completed' }, // May 28, 2024, 10:00 AM
 ];
 
 // Helper to get status badge variant
@@ -172,3 +173,5 @@ export default function TransactionsPage() {
     </div>
   );
 }
+
+    

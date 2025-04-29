@@ -17,6 +17,7 @@ const teamMembers = [
   { name: 'Diana Davis', role: 'Client Relations Manager', image: 'https://picsum.photos/seed/face_diana/300/300' },
 ];
 
+// Use static years for milestones
 const historyMilestones = [
     { year: 2018, event: 'Yard Trades Founded', description: 'Established with a vision to democratize profitable investments through transparency and technology.' },
     { year: 2019, event: 'Reached 1,000 Clients', description: 'Expanded client base rapidly through trust, performance, and strong referrals.' },
@@ -116,7 +117,7 @@ export default function AboutPage() {
                  <Image
                    src="https://picsum.photos/seed/about_story/800/600" // Placeholder image
                    alt="Abstract concept of growth and strategy"
-                   layout="fill"
+                   fill // Use fill instead of layout
                    objectFit="cover"
                    className="rounded-lg shadow-xl transition-transform duration-500 ease-in-out group-hover:scale-105"
                  />
@@ -170,7 +171,7 @@ export default function AboutPage() {
                     <Image
                         src={member.image}
                         alt={member.name}
-                        layout="fill"
+                        fill // Use fill instead of layout
                         objectFit="cover"
                         className="transition-transform duration-500 group-hover:scale-110"
                     />
@@ -205,4 +206,4 @@ export default function AboutPage() {
   );
 }
 
-
+    

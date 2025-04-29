@@ -12,24 +12,28 @@ import { Button } from '@/components/ui/button';
 import { format } from 'date-fns'; // Import date-fns format function
 
 // Mock Data (Replace with actual data fetching logic)
+// Use fixed dates to avoid hydration issues
 const portfolioData = {
   totalValue: 12345.67,
   totalInvested: 10000.00,
   overallProfit: 2345.67,
   holdings: [
-    { id: 'inv001', plan: 'Gold Plan', invested: 5000, currentValue: 5800, profit: 800, startDate: new Date(2024, 5, 1), endDate: new Date(2024, 5, 4), progress: 100, status: 'Completed' },
-    { id: 'inv002', plan: 'Silver Plan', invested: 3000, currentValue: 3450, profit: 450, startDate: new Date(2024, 6, 10), endDate: new Date(2024, 6, 12), progress: 75, status: 'Active' },
-    // Example of a completed starter plan
-    // { id: 'inv003', plan: 'Starter Plan', invested: 500, currentValue: 550, profit: 50, startDate: new Date(2024, 6, 1), endDate: new Date(2024, 6, 2), progress: 100, status: 'Completed' },
-    { id: 'inv004', plan: 'Gold Plan', invested: 1500, currentValue: 1545.67, profit: 45.67, startDate: new Date(2024, 6, 20), endDate: new Date(2024, 6, 23), progress: 30, status: 'Active' },
+    { id: 'inv001', plan: 'Gold Plan', invested: 5000, currentValue: 5800, profit: 800, startDate: new Date(2024, 5, 1), endDate: new Date(2024, 5, 4), progress: 100, status: 'Completed' }, // June 1 - June 4, 2024
+    { id: 'inv002', plan: 'Silver Plan', invested: 3000, currentValue: 3450, profit: 450, startDate: new Date(2024, 6, 10), endDate: new Date(2024, 6, 12), progress: 75, status: 'Active' }, // July 10 - July 12, 2024
+    { id: 'inv004', plan: 'Gold Plan', invested: 1500, currentValue: 1545.67, profit: 45.67, startDate: new Date(2024, 6, 20), endDate: new Date(2024, 6, 23), progress: 30, status: 'Active' }, // July 20 - July 23, 2024
   ],
   availableBalance: 3895.67, // Example available balance (Total Value - Active Investments Current Value)
 };
 
 // Helper function to format dates using date-fns
-const formatDate = (date: Date | string): string => {
+const formatDate = (date: Date | string | undefined): string => {
     if (!date) return '-';
     const d = typeof date === 'string' ? new Date(date) : date;
+    // Add error handling for invalid dates
+    if (isNaN(d.getTime())) {
+        console.warn("Invalid date received for formatting:", date);
+        return '-';
+    }
     return format(d, 'PP'); // 'PP' is for localized date, e.g., Jul 15, 2024
 }
 
@@ -166,3 +170,5 @@ export default function PortfolioPage() {
     </div>
   );
 }
+
+    

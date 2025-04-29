@@ -21,7 +21,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Separator } from '@/components/ui/separator';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'; // Import Alert components
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"; // Import Alert components
 import { format } from 'date-fns'; // Import date-fns format function
 
 // Define Zod schema for password change form validation
@@ -37,13 +37,14 @@ const passwordChangeSchema = z.object({
 type PasswordChangeInputs = z.infer<typeof passwordChangeSchema>;
 
 // Mock security data (Replace with actual data fetching and state management)
+// Use fixed dates to avoid hydration issues
 const securityStatus = {
     twoFactorEnabled: true,
     // Example login history - fetch real data
     loginHistory: [
-        { id: 1, date: new Date(Date.now() - 3600 * 1000 * 2), location: 'New York, USA', device: 'Chrome on Windows', status: 'Successful' },
-        { id: 2, date: new Date(Date.now() - 3600 * 1000 * 24), location: 'London, UK', device: 'Safari on macOS', status: 'Successful' },
-        { id: 3, date: new Date(Date.now() - 3600 * 1000 * 26), location: 'Unknown (VPN?)', device: 'Firefox on Linux', status: 'Failed Attempt' },
+        { id: 1, date: new Date(2024, 6, 25, 16, 30, 0), location: 'New York, USA', device: 'Chrome on Windows', status: 'Successful' }, // Example: July 25, 2024, 4:30 PM
+        { id: 2, date: new Date(2024, 6, 24, 10, 0, 0), location: 'London, UK', device: 'Safari on macOS', status: 'Successful' }, // Example: July 24, 2024, 10:00 AM
+        { id: 3, date: new Date(2024, 6, 24, 8, 15, 0), location: 'Unknown (VPN?)', device: 'Firefox on Linux', status: 'Failed Attempt' }, // Example: July 24, 2024, 8:15 AM
     ]
 };
 
@@ -286,3 +287,5 @@ export default function SecurityPage() {
     </div>
   );
 }
+
+    

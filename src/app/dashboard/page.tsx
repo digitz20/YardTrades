@@ -15,20 +15,24 @@ const summaryData = {
   totalBalance: 12345.67,
   totalProfit: 1500.00,
   activeInvestmentValue: 8450.00, // Changed from count to value
+  // Keep recent activity relative for demonstration, but be aware it can cause hydration issues
+  // if not handled carefully (e.g., client-side only rendering for this part)
   recentActivity: { type: 'Deposit', amount: 500, currency: 'USDT', time: '2 hours ago' },
 };
 
 // Example recent transactions (replace with real data)
+// Use fixed dates to avoid hydration issues
 const recentTransactions = [
-    { id: 'txn005', type: 'Profit Payout', method: 'Silver Plan', amount: 120, date: new Date(Date.now() - 3600 * 1000 * 1), status: 'Completed' },
-    { id: 'txn004', type: 'Deposit', method: 'Crypto (ETH)', amount: 500, date: new Date(Date.now() - 3600 * 1000 * 5), status: 'Completed' },
-    { id: 'txn003', type: 'Withdrawal', method: 'Bank Transfer', amount: -250, date: new Date(Date.now() - 3600 * 1000 * 24 * 2), status: 'Completed' },
+    { id: 'txn005', type: 'Profit Payout', method: 'Silver Plan', amount: 120, date: new Date(2024, 6, 25, 14, 30, 0), status: 'Completed' }, // Example: July 25, 2024, 2:30 PM
+    { id: 'txn004', type: 'Deposit', method: 'Crypto (ETH)', amount: 500, date: new Date(2024, 6, 25, 10, 15, 0), status: 'Completed' }, // Example: July 25, 2024, 10:15 AM
+    { id: 'txn003', type: 'Withdrawal', method: 'Bank Transfer', amount: -250, date: new Date(2024, 6, 23, 9, 0, 0), status: 'Completed' }, // Example: July 23, 2024, 9:00 AM
 ];
 
 // Example active investments (replace with real data)
+// Use fixed dates to avoid hydration issues
 const activeInvestments = [
-    { id: 'inv001', plan: 'Gold Plan', invested: 5000, currentValue: 5800, progress: 70 },
-    { id: 'inv004', plan: 'Silver Plan', invested: 3000, currentValue: 3450, progress: 45 },
+    { id: 'inv001', plan: 'Gold Plan', invested: 5000, currentValue: 5800, progress: 70, startDate: new Date(2024, 5, 1), endDate: new Date(2024, 5, 4) }, // Example dates
+    { id: 'inv004', plan: 'Silver Plan', invested: 3000, currentValue: 3450, progress: 45, startDate: new Date(2024, 6, 10), endDate: new Date(2024, 6, 12) }, // Example dates
 ]
 
 export default function DashboardPage() {
@@ -77,6 +81,7 @@ export default function DashboardPage() {
              <Activity className="h-4 w-4 text-muted-foreground" />
            </CardHeader>
            <CardContent className="pt-2"> {/* Added pt-2 */}
+             {/* Note: Client-side rendering might be needed for the 'time' part if it must be relative */}
              <div className="text-lg font-semibold truncate">{summaryData.recentActivity.type} +${summaryData.recentActivity.amount} {summaryData.recentActivity.currency}</div>
              <p className="text-xs text-muted-foreground mt-1">{summaryData.recentActivity.time}</p> {/* Added mt-1 */}
            </CardContent>
@@ -182,3 +187,5 @@ export default function DashboardPage() {
     </div>
   );
 }
+
+    
