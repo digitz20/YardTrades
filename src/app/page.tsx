@@ -196,8 +196,8 @@ export default function Home() {
                      </ul>
                    </div>
                    <Button className="w-full mt-auto group-hover:bg-primary/90 transition-colors" asChild>
-                       {/* Updated Button: Links to signup with plan pre-selection if needed */}
-                       <Link href={`/signup?plan=${plan.id}`}>Invest Now</Link>
+                       {/* Updated Button: Links to crypto investment page */}
+                       <Link href="/crypto-invest">Invest Now</Link>
                    </Button>
                 </CardContent>
               </Card>
