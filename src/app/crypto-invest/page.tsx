@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/hooks/use-toast'; // Import useToast
 import { Copy, Bitcoin, CircleHelp, ShieldCheck, DollarSign, Landmark, ArrowLeft } from 'lucide-react'; // Import ArrowLeft
 import {
   Tooltip,
@@ -23,7 +23,7 @@ const cryptoOptions = [
   {
     name: 'Bitcoin',
     symbol: 'BTC',
-    address: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh', // Example BTC Address
+    address: 'bc1qqku6e3qxyhlv5fvjaxazt0v5f5mf77lzt0ymm0', // Updated BTC Address
     icon: Bitcoin, // Use Lucide icon
     network: 'Bitcoin Network',
   },
