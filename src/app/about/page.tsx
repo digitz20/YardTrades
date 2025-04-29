@@ -3,17 +3,17 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'; // Added CardDescription
-import { Zap, Target, Heart, Users, Briefcase, Clock, Building, TrendingUp, ShieldCheck } from 'lucide-react'; // Added more icons
+import { Zap, Target, Heart, Users, Briefcase, Clock, Building, TrendingUp, ShieldCheck, CheckCircle } from 'lucide-react'; // Added CheckCircle
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Separator } from '@/components/ui/separator'; // Import Separator
 
 const teamMembers = [
-  { name: 'Alice Johnson', role: 'CEO & Founder', image: 'https://picsum.photos/seed/alice_team/300/300' },
-  { name: 'Bob Williams', role: 'Chief Investment Officer', image: 'https://picsum.photos/seed/bob_team/300/300' },
-  { name: 'Charlie Brown', role: 'Head of Financial Planning', image: 'https://picsum.photos/seed/charlie_team/300/300' },
-  { name: 'Diana Davis', role: 'Client Relations Manager', image: 'https://picsum.photos/seed/diana_team/300/300' },
+  { name: 'Alice Johnson', role: 'CEO & Founder', image: 'https://picsum.photos/seed/alice_ceo/300/300' }, // More specific seed
+  { name: 'Bob Williams', role: 'Chief Investment Officer', image: 'https://picsum.photos/seed/bob_cio/300/300' },   // More specific seed
+  { name: 'Charlie Brown', role: 'Head of Financial Planning', image: 'https://picsum.photos/seed/charlie_planner/300/300' }, // More specific seed
+  { name: 'Diana Davis', role: 'Client Relations Manager', image: 'https://picsum.photos/seed/diana_relations/300/300' }, // More specific seed
 ];
 
 const historyMilestones = [
@@ -203,3 +203,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+    
