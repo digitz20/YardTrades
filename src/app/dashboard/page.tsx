@@ -35,9 +35,8 @@ export default function DashboardPage() {
   const accountValue = summaryData.totalBalance + summaryData.activeInvestmentValue; // Example calculation
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6 md:gap-8"> {/* Use gap for consistent spacing between sections */}
       {/* Removed the redundant title here as it's in the layout header */}
-      {/* <h1 className="text-3xl font-bold tracking-tight">Dashboard Overview</h1> */}
 
       {/* Summary Cards */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -46,9 +45,9 @@ export default function DashboardPage() {
             <CardTitle className="text-sm font-medium">Total Balance</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2"> {/* Added pt-2 */}
             <div className="text-2xl font-bold">${summaryData.totalBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-            <p className="text-xs text-muted-foreground">Available funds</p>
+            <p className="text-xs text-muted-foreground mt-1">Available funds</p> {/* Added mt-1 */}
           </CardContent>
         </Card>
         <Card className="hover:shadow-md transition-shadow">
@@ -56,9 +55,9 @@ export default function DashboardPage() {
             <CardTitle className="text-sm font-medium">Active Investments</CardTitle>
             <BarChart className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2"> {/* Added pt-2 */}
              <div className="text-2xl font-bold">${summaryData.activeInvestmentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-            <p className="text-xs text-muted-foreground">Current value of ongoing plans</p>
+            <p className="text-xs text-muted-foreground mt-1">Current value of ongoing plans</p> {/* Added mt-1 */}
           </CardContent>
         </Card>
         <Card className="hover:shadow-md transition-shadow">
@@ -66,9 +65,9 @@ export default function DashboardPage() {
             <CardTitle className="text-sm font-medium">Lifetime Profit</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2"> {/* Added pt-2 */}
             <div className="text-2xl font-bold text-green-500">+${summaryData.totalProfit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-            <p className="text-xs text-muted-foreground">Total earnings since joining</p>
+            <p className="text-xs text-muted-foreground mt-1">Total earnings since joining</p> {/* Added mt-1 */}
           </CardContent>
         </Card>
          <Card className="hover:shadow-md transition-shadow">
@@ -76,15 +75,15 @@ export default function DashboardPage() {
              <CardTitle className="text-sm font-medium">Recent Activity</CardTitle>
              <Activity className="h-4 w-4 text-muted-foreground" />
            </CardHeader>
-           <CardContent>
+           <CardContent className="pt-2"> {/* Added pt-2 */}
              <div className="text-lg font-semibold truncate">{summaryData.recentActivity.type} +${summaryData.recentActivity.amount} {summaryData.recentActivity.currency}</div>
-             <p className="text-xs text-muted-foreground">{summaryData.recentActivity.time}</p>
+             <p className="text-xs text-muted-foreground mt-1">{summaryData.recentActivity.time}</p> {/* Added mt-1 */}
            </CardContent>
          </Card>
       </div>
 
       {/* Quick Actions & Active Investments */}
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid gap-6 md:grid-cols-2"> {/* Use gap-6 for consistency */}
          {/* Quick Actions */}
          <Card className="hover:shadow-md transition-shadow">
             <CardHeader>
@@ -107,7 +106,7 @@ export default function DashboardPage() {
           <CardContent className="space-y-4">
             {activeInvestments.length > 0 ? (
               activeInvestments.map((investment) => (
-                <div key={investment.id} className="space-y-1">
+                <div key={investment.id} className="space-y-1.5"> {/* Increased space-y slightly */}
                   <div className="flex justify-between items-center text-sm">
                     <span className="font-medium">{investment.plan}</span>
                     <span className="text-muted-foreground">${investment.currentValue.toLocaleString()} / ${investment.invested.toLocaleString()}</span>
@@ -119,7 +118,9 @@ export default function DashboardPage() {
             ) : (
               <p className="text-sm text-muted-foreground text-center py-4">No active investments.</p>
             )}
-             <Button variant="link" className="p-0 h-auto mt-2 text-sm" asChild><Link href="/dashboard/portfolio">View All Details</Link></Button>
+             <div className="text-right mt-2"> {/* Align button to the right */}
+                 <Button variant="link" className="p-0 h-auto text-sm" asChild><Link href="/dashboard/portfolio">View All Details</Link></Button>
+             </div>
           </CardContent>
         </Card>
       </div>
@@ -130,18 +131,18 @@ export default function DashboardPage() {
               <CardTitle>Recent Transactions</CardTitle>
               <CardDescription>Your latest account activities.</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-4"> {/* Added space-y for consistency */}
               {recentTransactions.length > 0 ? (
                   <ul className="space-y-3">
                       {recentTransactions.map((txn) => (
-                          <li key={txn.id} className="flex items-center justify-between text-sm border-b border-border/50 pb-2 last:border-b-0 last:pb-0">
-                              <div className="flex items-center gap-3">
+                          <li key={txn.id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-4 text-sm border-b border-border/50 pb-3 last:border-b-0 last:pb-0"> {/* Adjusted padding and gap */}
+                              <div className="flex items-center gap-3 flex-wrap"> {/* Allow wrap */}
                                    <span className={`font-medium ${txn.amount > 0 ? 'text-green-500' : 'text-red-500'}`}>
                                         {txn.type}
                                    </span>
                                    <span className="text-muted-foreground text-xs">({txn.method})</span>
                               </div>
-                              <div className="text-right">
+                              <div className="text-left sm:text-right w-full sm:w-auto mt-1 sm:mt-0"> {/* Adjusted alignment and width */}
                                  <span className={`font-semibold ${txn.amount > 0 ? 'text-green-500' : 'text-red-500'}`}>
                                      {txn.amount > 0 ? '+' : ''}${Math.abs(txn.amount).toLocaleString()}
                                  </span>
@@ -151,14 +152,15 @@ export default function DashboardPage() {
                                        {txn.date.toLocaleDateString([], { month: 'short', day: 'numeric' })}
                                    </p>
                                </div>
-                               {/* <Badge variant={txn.status === 'Completed' ? 'default' : 'secondary'} className="hidden sm:inline-flex">{txn.status}</Badge> */}
                            </li>
                        ))}
                    </ul>
                ) : (
                    <p className="text-sm text-muted-foreground text-center py-4">No recent transactions to display.</p>
                )}
-              <Button variant="link" className="p-0 h-auto mt-4 text-sm" asChild><Link href="/dashboard/transactions">View All Transactions</Link></Button>
+                <div className="text-right mt-2"> {/* Align button to the right */}
+                   <Button variant="link" className="p-0 h-auto text-sm" asChild><Link href="/dashboard/transactions">View All Transactions</Link></Button>
+               </div>
           </CardContent>
       </Card>
 

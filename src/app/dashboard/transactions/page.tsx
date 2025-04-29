@@ -64,9 +64,8 @@ export default function TransactionsPage() {
     }
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6 md:gap-8"> {/* Use gap for consistent spacing */}
       {/* Removed redundant title */}
-      {/* <h1 className="text-3xl font-bold tracking-tight">Transactions</h1> */}
 
       <Card className="border border-border/60 shadow-sm">
         <CardHeader className="border-b pb-4">
@@ -115,11 +114,11 @@ export default function TransactionsPage() {
               <Table>
                 <TableHeader className="bg-muted/50">
                   <TableRow>
-                    <TableHead className="pl-6 w-[150px]">Type</TableHead>
-                    <TableHead>Details / Method</TableHead>
-                    <TableHead className="text-right">Amount (USD)</TableHead>
-                    <TableHead className="w-[180px]">Date</TableHead>
-                    <TableHead className="text-center pr-6 w-[120px]">Status</TableHead>
+                    <TableHead className="pl-6 py-3 w-[150px]">Type</TableHead> {/* Added py-3 */}
+                    <TableHead className="py-3">Details / Method</TableHead>
+                    <TableHead className="text-right py-3">Amount (USD)</TableHead>
+                    <TableHead className="py-3 w-[180px]">Date</TableHead>
+                    <TableHead className="text-center pr-6 py-3 w-[120px]">Status</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -131,19 +130,19 @@ export default function TransactionsPage() {
 
                        return (
                           <TableRow key={txn.id} className="hover:bg-muted/30 transition-colors">
-                            <TableCell className="font-medium pl-6">
+                            <TableCell className="font-medium pl-6 py-4"> {/* Added py-4 */}
                               <div className={`flex items-center gap-2 ${color}`}>
                                  <Icon className={`h-4 w-4`} />
                                  <span>{txn.type}</span>
                                </div>
                             </TableCell>
-                            <TableCell className="text-muted-foreground">{txn.method}</TableCell>
-                            <TableCell className={`text-right font-semibold ${amountColor}`}>
+                            <TableCell className="text-muted-foreground py-4">{txn.method}</TableCell>
+                            <TableCell className={`text-right font-semibold py-4 ${amountColor}`}>
                               {isPositive ? '+' : ''}
                               ${txn.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </TableCell>
-                            <TableCell className="text-muted-foreground">{format(txn.date, 'PP p')}</TableCell> {/* Format date with time */}
-                            <TableCell className="text-center pr-6">
+                            <TableCell className="text-muted-foreground py-4">{format(txn.date, 'PP p')}</TableCell> {/* Format date with time */}
+                            <TableCell className="text-center pr-6 py-4">
                               <Badge variant={getStatusVariant(txn.status)} className="capitalize text-xs">
                                 {txn.status}
                               </Badge>

@@ -121,9 +121,8 @@ export default function SecurityPage() {
 
 
   return (
-    <div className="space-y-8">
-      {/* Removed redundant title */}
-      {/* <h1 className="text-3xl font-bold tracking-tight">Security Settings</h1> */}
+    <div className="flex flex-col gap-8"> {/* Use gap for consistent spacing */}
+       {/* Removed redundant title */}
 
        {/* Security Overview Alert */}
        <Alert variant={is2FAEnabled ? "default" : "destructive"} className={is2FAEnabled ? "border-green-500/50 bg-green-900/10" : ""}>
@@ -148,7 +147,7 @@ export default function SecurityPage() {
         <CardContent>
            <Form {...passwordForm}>
              {/* Use handlePasswordSubmit */}
-             <form onSubmit={handlePasswordSubmit(onPasswordSubmit)} className="space-y-4 max-w-md">
+             <form onSubmit={handlePasswordSubmit(onPasswordSubmit)} className="space-y-6 max-w-md"> {/* Adjusted space-y */}
                <FormField
                  control={passwordForm.control}
                  name="currentPassword"
@@ -188,19 +187,21 @@ export default function SecurityPage() {
                    </FormItem>
                  )}
                />
-                <Button type="submit" disabled={isPasswordSubmitting} className="mt-2">
-                  {isPasswordSubmitting ? (
-                     <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Updating Password...</>
-                  ) : (
-                     'Update Password'
-                  )}
-                </Button>
+                <div className="pt-2"> {/* Added padding top for button */}
+                    <Button type="submit" disabled={isPasswordSubmitting}>
+                      {isPasswordSubmitting ? (
+                         <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Updating Password...</>
+                      ) : (
+                         'Update Password'
+                      )}
+                    </Button>
+                </div>
              </form>
            </Form>
         </CardContent>
       </Card>
 
-      <Separator />
+       {/* Separator handled by parent gap */}
 
       {/* Two-Factor Authentication Section */}
        <Card className="border border-border/60 shadow-sm">
@@ -208,9 +209,9 @@ export default function SecurityPage() {
             <CardTitle className="flex items-center gap-2 text-xl"><ShieldCheck className="h-5 w-5 text-primary" /> Two-Factor Authentication (2FA)</CardTitle>
             <CardDescription>Add an extra layer of security using an authenticator app (e.g., Google Authenticator, Authy).</CardDescription>
          </CardHeader>
-         <CardContent>
+         <CardContent className="space-y-4"> {/* Added space-y */}
              <div className="flex items-center justify-between space-x-4 rounded-lg border p-4 bg-muted/30">
-                <div className="space-y-0.5">
+                <div className="space-y-1"> {/* Reduced space-y */}
                     <Label htmlFor="two-factor-switch" className="text-base font-medium">Enable 2FA</Label>
                     <p className="text-sm text-muted-foreground">
                         Secure your account by requiring a verification code upon login.
@@ -237,7 +238,7 @@ export default function SecurityPage() {
          </CardContent>
        </Card>
 
-       <Separator />
+       {/* Separator handled by parent gap */}
 
         {/* Login History / Account Activity Section */}
        <Card className="border border-border/60 shadow-sm">
@@ -246,7 +247,7 @@ export default function SecurityPage() {
             <CardDescription>Review recent login activity on your account. Contact support if you see any suspicious activity.</CardDescription>
          </CardHeader>
          <CardContent className="space-y-4">
-             {/* Placeholder for a list/table of recent logins */}
+            {/* Placeholder for a list/table of recent logins */}
             <div className="border rounded-lg overflow-hidden">
                 <table className="w-full text-sm">
                     <thead className="bg-muted/50">

@@ -71,7 +71,7 @@ export default function DashboardLayout({
         </header>
 
         {/* Page Content */}
-        <div className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto"> {/* Add padding and overflow */}
+        <div className="flex-1 p-6 md:p-8 lg:p-10 overflow-y-auto"> {/* Increased padding */}
            {children}
         </div>
       </main>

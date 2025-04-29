@@ -156,9 +156,8 @@ export default function SettingsPage() {
 
 
   return (
-    <div className="space-y-8">
+    <div className="flex flex-col gap-8"> {/* Use gap for consistent spacing */}
        {/* Removed redundant title */}
-      {/* <h1 className="text-3xl font-bold tracking-tight">Settings</h1> */}
 
       {/* Profile Settings Section */}
       <Card className="border border-border/60 shadow-sm">
@@ -171,14 +170,14 @@ export default function SettingsPage() {
              {/* Use handleProfileSubmit */}
              <form onSubmit={handleProfileSubmit(onProfileSubmit)} className="space-y-6">
                 {/* Avatar Section */}
-                <FormItem className="flex items-center gap-4">
-                    <Avatar className="h-16 w-16">
+                <FormItem className="flex items-center gap-6"> {/* Increased gap */}
+                    <Avatar className="h-20 w-20"> {/* Increased size */}
                         <AvatarImage src={currentUser.avatarUrl} alt={currentUser.fullName} />
                          {/* Simple fallback with initials */}
                         <AvatarFallback>{currentUser.fullName?.split(' ').map(n => n[0]).join('') || 'U'}</AvatarFallback>
                     </Avatar>
-                     <div className="flex flex-col gap-2">
-                        <Label htmlFor="avatar-upload" className={cn(buttonVariants({ variant: "outline", size: "sm" }), "cursor-pointer")}>
+                     <div className="flex flex-col gap-2.5"> {/* Adjusted gap */}
+                        <Label htmlFor="avatar-upload" className={cn(buttonVariants({ variant: "outline", size: "sm" }), "cursor-pointer w-fit")}> {/* Made button fit content */}
                            <Upload className="mr-2 h-4 w-4"/> Change Avatar
                         </Label>
                         <Input id="avatar-upload" type="file" accept="image/*" className="hidden" onChange={handleAvatarChange} />
@@ -186,7 +185,7 @@ export default function SettingsPage() {
                     </div>
                 </FormItem>
 
-                <Separator/>
+                <Separator className="my-6"/> {/* Added margin */}
 
                <FormField
                  control={profileForm.control}
@@ -218,19 +217,21 @@ export default function SettingsPage() {
                />
                 {/* Add other profile fields here if needed (e.g., Phone) */}
 
-             <Button type="submit" disabled={isProfileSubmitting}>
-                {isProfileSubmitting ? (
-                   <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</>
-                ) : (
-                   'Save Profile Changes'
-                )}
-             </Button>
+             <div className="pt-2"> {/* Added padding top for button */}
+                 <Button type="submit" disabled={isProfileSubmitting}>
+                    {isProfileSubmitting ? (
+                       <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</>
+                    ) : (
+                       'Save Profile Changes'
+                    )}
+                 </Button>
+             </div>
              </form>
            </Form>
         </CardContent>
       </Card>
 
-       <Separator />
+       {/* Separator between sections is handled by the parent gap */}
 
        {/* Notification Settings Section */}
         <Card className="border border-border/60 shadow-sm">
@@ -247,7 +248,7 @@ export default function SettingsPage() {
                            name="emailNotifications"
                            render={({ field }) => (
                                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 bg-muted/30">
-                                   <div className="space-y-0.5">
+                                   <div className="space-y-1"> {/* Reduced space-y */}
                                        <FormLabel htmlFor="email-notifications" className="text-base font-medium flex items-center gap-2">
                                           <Mail className="h-4 w-4" /> Email Notifications
                                        </FormLabel>
@@ -271,7 +272,7 @@ export default function SettingsPage() {
                            name="marketingEmails"
                            render={({ field }) => (
                                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 bg-muted/30">
-                                   <div className="space-y-0.5">
+                                   <div className="space-y-1"> {/* Reduced space-y */}
                                        <FormLabel htmlFor="marketing-emails" className="text-base font-medium flex items-center gap-2">
                                            <MessageSquare className="h-4 w-4" /> Marketing Emails
                                        </FormLabel>
@@ -295,7 +296,7 @@ export default function SettingsPage() {
                            name="pushNotifications"
                            render={({ field }) => (
                                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 bg-muted/30">
-                                   <div className="space-y-0.5">
+                                   <div className="space-y-1"> {/* Reduced space-y */}
                                        <FormLabel htmlFor="push-notifications" className="text-base font-medium flex items-center gap-2">
                                             <Smartphone className="h-4 w-4" /> Push Notifications
                                        </FormLabel>
@@ -316,13 +317,15 @@ export default function SettingsPage() {
                            )}
                        />
 
-                       <Button type="submit" disabled={isNotificationSubmitting}>
-                            {isNotificationSubmitting ? (
-                                <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</>
-                            ) : (
-                                'Save Notification Preferences'
-                            )}
-                       </Button>
+                        <div className="pt-2"> {/* Added padding top for button */}
+                           <Button type="submit" disabled={isNotificationSubmitting}>
+                                {isNotificationSubmitting ? (
+                                    <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</>
+                                ) : (
+                                    'Save Notification Preferences'
+                                )}
+                           </Button>
+                        </div>
                    </form>
                 </Form>
             </CardContent>

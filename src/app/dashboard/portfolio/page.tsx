@@ -45,9 +45,8 @@ const getStatusVariant = (status: string): "default" | "secondary" | "outline" |
 
 export default function PortfolioPage() {
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6 md:gap-8"> {/* Use gap for consistent spacing */}
       {/* Removed redundant title */}
-      {/* <h1 className="text-3xl font-bold tracking-tight">Portfolio</h1> */}
 
       {/* Portfolio Summary Cards */}
       <div className="grid gap-4 md:grid-cols-3">
@@ -56,9 +55,9 @@ export default function PortfolioPage() {
             <CardTitle className="text-sm font-medium">Total Portfolio Value</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2"> {/* Added pt-2 */}
             <div className="text-2xl font-bold">${portfolioData.totalValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-            <p className="text-xs text-muted-foreground">Total assets including active investments</p>
+            <p className="text-xs text-muted-foreground mt-1">Total assets including active investments</p> {/* Added mt-1 */}
           </CardContent>
         </Card>
          <Card className="hover:shadow-md transition-shadow">
@@ -66,9 +65,9 @@ export default function PortfolioPage() {
              <CardTitle className="text-sm font-medium">Total Invested Capital</CardTitle>
              <BarChart className="h-4 w-4 text-muted-foreground" />
            </CardHeader>
-           <CardContent>
+           <CardContent className="pt-2"> {/* Added pt-2 */}
              <div className="text-2xl font-bold">${portfolioData.totalInvested.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-              <p className="text-xs text-muted-foreground">Sum of initial investments</p>
+              <p className="text-xs text-muted-foreground mt-1">Sum of initial investments</p> {/* Added mt-1 */}
            </CardContent>
          </Card>
         <Card className="hover:shadow-md transition-shadow">
@@ -76,11 +75,11 @@ export default function PortfolioPage() {
             <CardTitle className="text-sm font-medium">Overall Profit/Loss</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-2"> {/* Added pt-2 */}
             <div className={`text-2xl font-bold ${portfolioData.overallProfit >= 0 ? 'text-green-500' : 'text-red-500'}`}>
               {portfolioData.overallProfit >= 0 ? '+' : ''}${portfolioData.overallProfit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </div>
-             <p className="text-xs text-muted-foreground">Total returns generated across all plans</p>
+             <p className="text-xs text-muted-foreground mt-1">Total returns generated across all plans</p> {/* Added mt-1 */}
           </CardContent>
         </Card>
       </div>
@@ -93,7 +92,7 @@ export default function PortfolioPage() {
         </CardHeader>
         <CardContent className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-3xl font-bold text-primary">${portfolioData.availableBalance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-            <div className="flex gap-3">
+            <div className="flex gap-3 flex-wrap"> {/* Added flex-wrap */}
                 <Button asChild><Link href="/crypto-invest">Deposit Funds</Link></Button>
                 {/* Removed link to non-existent withdraw page */}
                 {/* <Button variant="outline" asChild><Link href="/dashboard/withdraw">Withdraw Funds</Link></Button> */}
@@ -113,35 +112,35 @@ export default function PortfolioPage() {
               <Table>
                 <TableHeader className="bg-muted/50">
                   <TableRow>
-                    <TableHead className="pl-6">Plan</TableHead>
-                    <TableHead>Start Date</TableHead>
-                    <TableHead>End Date</TableHead>
-                    <TableHead className="text-right">Invested</TableHead>
-                    <TableHead className="text-right">Current Value</TableHead>
-                    <TableHead className="text-right">Profit/Loss</TableHead>
-                    <TableHead className="text-center">Progress</TableHead>
-                    <TableHead className="text-center pr-6">Status</TableHead>
+                    <TableHead className="pl-6 py-3">Plan</TableHead> {/* Added py-3 */}
+                    <TableHead className="py-3">Start Date</TableHead>
+                    <TableHead className="py-3">End Date</TableHead>
+                    <TableHead className="text-right py-3">Invested</TableHead>
+                    <TableHead className="text-right py-3">Current Value</TableHead>
+                    <TableHead className="text-right py-3">Profit/Loss</TableHead>
+                    <TableHead className="text-center py-3">Progress</TableHead>
+                    <TableHead className="text-center pr-6 py-3">Status</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {portfolioData.holdings.length > 0 ? (
                     portfolioData.holdings.map((holding) => (
                       <TableRow key={holding.id} className="hover:bg-muted/30 transition-colors">
-                        <TableCell className="font-medium pl-6">{holding.plan}</TableCell>
-                        <TableCell className="text-muted-foreground">{formatDate(holding.startDate)}</TableCell>
-                        <TableCell className="text-muted-foreground">{formatDate(holding.endDate)}</TableCell>
-                        <TableCell className="text-right">${holding.invested.toLocaleString()}</TableCell>
-                        <TableCell className="text-right font-semibold">${holding.currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</TableCell>
-                        <TableCell className={`text-right font-medium ${holding.profit >= 0 ? 'text-green-500' : 'text-red-500'}`}>
+                        <TableCell className="font-medium pl-6 py-4">{holding.plan}</TableCell> {/* Added py-4 */}
+                        <TableCell className="text-muted-foreground py-4">{formatDate(holding.startDate)}</TableCell>
+                        <TableCell className="text-muted-foreground py-4">{formatDate(holding.endDate)}</TableCell>
+                        <TableCell className="text-right py-4">${holding.invested.toLocaleString()}</TableCell>
+                        <TableCell className="text-right font-semibold py-4">${holding.currentValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</TableCell>
+                        <TableCell className={`text-right font-medium py-4 ${holding.profit >= 0 ? 'text-green-500' : 'text-red-500'}`}>
                           {holding.profit >= 0 ? '+' : ''}${holding.profit.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </TableCell>
-                        <TableCell className="text-center">
+                        <TableCell className="text-center py-4">
                              <div className="flex items-center justify-center gap-2">
                                  <Progress value={holding.progress} className="h-1.5 w-16" aria-label={`${holding.plan} progress`}/>
                                  <span className="text-xs text-muted-foreground">{holding.progress}%</span>
                              </div>
                         </TableCell>
-                        <TableCell className="text-center pr-6">
+                        <TableCell className="text-center pr-6 py-4">
                           <Badge variant={getStatusVariant(holding.status)} className="capitalize">
                              {holding.status === 'Active' && <Clock className="mr-1 h-3 w-3" />}
                              {holding.status === 'Completed' && <CheckCircle className="mr-1 h-3 w-3" />}
