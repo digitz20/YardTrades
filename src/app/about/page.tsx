@@ -10,10 +10,11 @@ import Link from 'next/link';
 import { Separator } from '@/components/ui/separator'; // Import Separator
 
 const teamMembers = [
-  { name: 'Alice Johnson', role: 'CEO & Founder', image: 'https://picsum.photos/seed/alice_ceo/300/300' }, // More specific seed
-  { name: 'Bob Williams', role: 'Chief Investment Officer', image: 'https://picsum.photos/seed/bob_cio/300/300' },   // More specific seed
-  { name: 'Charlie Brown', role: 'Head of Financial Planning', image: 'https://picsum.photos/seed/charlie_planner/300/300' }, // More specific seed
-  { name: 'Diana Davis', role: 'Client Relations Manager', image: 'https://picsum.photos/seed/diana_relations/300/300' }, // More specific seed
+  // Using different seeds for potentially more face-like results, still placeholders
+  { name: 'Alice Johnson', role: 'CEO & Founder', image: 'https://picsum.photos/seed/face_alice/300/300' },
+  { name: 'Bob Williams', role: 'Chief Investment Officer', image: 'https://picsum.photos/seed/face_bob/300/300' },
+  { name: 'Charlie Brown', role: 'Head of Financial Planning', image: 'https://picsum.photos/seed/face_charlie/300/300' },
+  { name: 'Diana Davis', role: 'Client Relations Manager', image: 'https://picsum.photos/seed/face_diana/300/300' },
 ];
 
 const historyMilestones = [
@@ -204,4 +205,4 @@ export default function AboutPage() {
   );
 }
 
-    
+
