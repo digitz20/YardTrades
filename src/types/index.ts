@@ -1,5 +1,6 @@
 /**
  * Represents a currency pair.
+ * (Currently not used in the main page, but kept for potential future use)
  */
 export interface CurrencyPair {
   /**
@@ -20,22 +21,5 @@ export interface CurrencyPair {
    name?: string;
 }
 
-/**
- * Represents historical market data for a currency pair.
- */
-export interface HistoricalDataPoint {
-  /**
-   * The timestamp of the data point (in milliseconds).
-   */
-  timestamp: number;
-  /**
-   * The price at the timestamp.
-   */
-  price: number;
-}
-
-/**
- * Represents the mode of the application (crypto or forex).
- * (Currently less relevant with the new design but kept for potential future use)
- */
-export type MarketMode = 'crypto' | 'forex';
+// Removed HistoricalDataPoint interface as it's no longer used.
+// Removed MarketMode type as it's no longer used.

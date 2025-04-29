@@ -2,10 +2,12 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
+import { Footer } from '@/components/footer'; // Import Footer
+import { Header } from '@/components/header'; // Import Header
 
 export const metadata: Metadata = {
-  title: 'NovaxTrades Clone', // Updated Title
-  description: 'Crypto Trading Information Dashboard', // Updated Description
+  title: 'Yard Trades - Investment Plans', // Updated Title
+  description: 'Explore various investment plans offered by Yard Trades.', // Updated Description
 };
 
 export default function RootLayout({
@@ -18,11 +20,14 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased"
-          // Removed Inter font variable application as it wasn't strictly necessary for the new design
+          "min-h-screen bg-background font-sans antialiased flex flex-col" // Added flex flex-col
         )}
       >
-        {children}
+        <Header /> {/* Add Header */}
+        <div className="flex-grow"> {/* Added flex-grow wrapper */}
+          {children}
+        </div>
+        <Footer /> {/* Add Footer */}
         <Toaster />
       </body>
     </html>
