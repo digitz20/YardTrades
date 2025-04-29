@@ -1,3 +1,4 @@
+
 import type { CurrencyPair } from '@/types';
 
 // Keep mock data as a fallback
@@ -66,7 +67,7 @@ export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promis
           symbol: item.asset_id + 'USD', // Assume price is in USD, create symbol like BTCUSD
           price: item.price_usd,
           // Free CoinAPI likely won't give % change easily. Use volume or a fixed value.
-          // Using volume_1day as a placeholder - NOT accurate percentage change.
+          // Using volume_1day_usd as a placeholder - NOT accurate percentage change.
           percentageChange: item.volume_1day_usd ? (item.volume_1day_usd / 1000000) % 5 : Math.random() * 5 - 2.5, // Placeholder calculation
           name: item.name,
         }))
