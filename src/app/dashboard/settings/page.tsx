@@ -18,6 +18,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription, // Added FormDescription import
 } from "@/components/ui/form";
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch'; // Assuming you have Switch component
