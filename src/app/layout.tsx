@@ -47,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     // Apply dark theme by default via globals.css @layer base html directive
-    <html lang="en" suppressHydrationWarning className="dark"> {/* Ensure dark class is on html */}
+    <html lang="en" suppressHydrationWarning className="dark">{/* Ensure dark class is on html and no whitespace follows */}
       {/* Removed whitespace here */}
       <body
         className={cn(
