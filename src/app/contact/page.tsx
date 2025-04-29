@@ -155,7 +155,7 @@ export default function ContactPage() {
                          </div>
                          <div>
                             <h4 className="font-medium text-foreground">Address</h4>
-                            <p className="text-sm text-muted-foreground">114, Lombard street, Canary Wharf, United Kingdom</p> {/* Updated Address */}
+                            <p className="text-sm text-muted-foreground">114, Lombard street, United Kingdom</p> {/* Updated Address */}
                          </div>
                        </li>
                        <li className="flex items-start gap-4">
@@ -208,4 +208,5 @@ export default function ContactPage() {
     </div>
   );
 }
+
 
