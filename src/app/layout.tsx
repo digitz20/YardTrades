@@ -48,6 +48,7 @@ export default function RootLayout({
   return (
     // Apply dark theme by default via globals.css @layer base html directive
     <html lang="en" suppressHydrationWarning className="dark"> {/* Ensure dark class is on html */}
+      {/* Removed whitespace here */}
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased flex flex-col"
