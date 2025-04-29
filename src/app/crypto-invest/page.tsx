@@ -30,28 +30,28 @@ const cryptoOptions = [
   {
     name: 'Ethereum',
     symbol: 'ETH',
-    address: '0x1234567890abcdef1234567890abcdef12345678', // Example ETH Address
+    address: '0x328bEaba35Eb07C1D4C82b19cE36A7345ED52C54', // Updated ETH Address
     icon: Landmark, // Using Landmark as a placeholder for ETH logo similarity
     network: 'Ethereum Network (ERC-20)',
   },
   {
     name: 'Tether (ERC20)',
     symbol: 'USDT',
-    address: '0xabcdef1234567890abcdef1234567890abcdef12', // Example USDT ERC20 Address
+    address: '0x328bEaba35Eb07C1D4C82b19cE36A7345ED52C54', // Updated USDT ERC20 Address
     icon: DollarSign, // Using DollarSign for USDT
     network: 'Ethereum Network (ERC-20)',
   },
    {
     name: 'Tether (TRC20)',
     symbol: 'USDT',
-    address: 'TRC20_ADDRESS_TETHER_GOES_HERE_EXAMPLE_T123', // Example USDT TRC20 Address
+    address: 'THycvE5TKFTLv4nZsq8SJJCYhDmvysSLyk', // Updated USDT TRC20 Address
     icon: DollarSign, // Using DollarSign for USDT
     network: 'Tron Network (TRC-20)',
   },
    {
     name: 'Litecoin',
     symbol: 'LTC',
-    address: 'ltc1qexampleaddresslitecoinplaceholder12345', // Example LTC Address
+    address: 'ltc1q7jl2al4caanc0k5zgsz3e399agfklk75nz46kf', // Updated LTC Address
     icon: CircleHelp, // Placeholder icon for LTC
     network: 'Litecoin Network',
   },
