@@ -2,13 +2,13 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import Link from 'next/link'; // Ensure Link is imported
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Copy, Bitcoin, CircleHelp, ShieldCheck, DollarSign, Landmark } from 'lucide-react'; // Import DollarSign, Landmark
+import { Copy, Bitcoin, CircleHelp, ShieldCheck, DollarSign, Landmark, ArrowLeft } from 'lucide-react'; // Import ArrowLeft
 import {
   Tooltip,
   TooltipContent,
@@ -84,6 +84,15 @@ export default function CryptoInvestPage() {
     <div className="bg-background text-foreground py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
+          {/* Back Button Added Here */}
+           <div className="mb-6 flex items-center justify-start">
+              <Button variant="outline" size="icon" asChild>
+                  <Link href="/dashboard" aria-label="Go back to Dashboard">
+                     <ArrowLeft className="h-4 w-4" />
+                  </Link>
+              </Button>
+            </div>
+
           <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">Invest with Cryptocurrency</h1>
           <p className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto">
             Deposit cryptocurrency directly to our wallet addresses below to fund your Yard Trades investment account. Ensure you select the correct network.
@@ -159,6 +168,7 @@ export default function CryptoInvestPage() {
                 <CardContent className="space-y-3 text-sm text-muted-foreground">
                     <p>1. Please allow sufficient time for blockchain confirmations (this can vary depending on the network).</p>
                     <p>2. Once confirmed, your deposit will be credited to your Yard Trades account balance.</p>
+                    {/* Ensure Link is imported and used correctly */}
                     <p>3. You can then proceed to the <Button variant="link" className="p-0 h-auto inline-block" asChild><Link href="/dashboard/investment">Investment page</Link></Button> in your dashboard to allocate the funds to a plan.</p>
                     <p>4. If your deposit doesn't reflect after a reasonable time, please <Button variant="link" className="p-0 h-auto inline-block" asChild><Link href="/contact">contact support</Link></Button> with your transaction details (Transaction ID/Hash).</p>
                 </CardContent>
