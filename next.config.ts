@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      // Allow images from any HTTPS source - Be cautious with this in production
+      // Consider restricting to specific domains if possible
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
     ],
   },
 };

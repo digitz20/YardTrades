@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { Briefcase } from 'lucide-react'; // Using Briefcase as a placeholder logo icon
 
-// Updated nav items based on Yard Trades reference
+// Updated nav items based on YardTrades reference
 const navItems = [
   { name: 'Home', href: '/' },
   { name: 'Services', href: '/services' },
@@ -27,7 +27,7 @@ export function Header() {
         <Link href="/" className="mr-6 flex items-center space-x-2 text-primary">
            <Briefcase className="h-6 w-6" />
            <span className="font-bold text-xl text-foreground sm:inline-block">
-            Yard Trades
+            YardTrades
           </span>
         </Link>
 

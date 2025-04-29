@@ -6,8 +6,8 @@ import { Footer } from '@/components/footer'; // Import Footer
 import { Header } from '@/components/header'; // Import Header
 
 export const metadata: Metadata = {
-  title: 'Yard Trades - Investment Plans', // Updated Title
-  description: 'Explore various investment plans offered by Yard Trades.', // Updated Description
+  title: 'YardTrades - Secure & Profitable Investments', // Updated Title
+  description: 'Invest with confidence. YardTrades offers secure, high-yield investment plans tailored for your financial growth. Start building your future today.', // Updated Description
 };
 
 export default function RootLayout({

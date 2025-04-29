@@ -3,6 +3,8 @@
 import React from 'react';
 import Link from 'next/link';
 import { Briefcase, Mail, MapPin, Phone } from 'lucide-react'; // Icons for footer
+import { Input } from './ui/input'; // Import Input
+import { Button } from './ui/button'; // Import Button
 
 export function Footer() {
   return (
@@ -14,11 +16,11 @@ export function Footer() {
             <Link href="/" className="mb-4 flex items-center space-x-2 text-primary">
               <Briefcase className="h-7 w-7" />
               <span className="font-bold text-xl text-foreground">
-                Yard Trades
+                YardTrades
               </span>
             </Link>
             <p className="text-sm leading-relaxed">
-              Yard Trades provides secure and profitable investment solutions. Join us to grow your capital with expert guidance and transparent processes.
+              YardTrades provides secure and profitable investment solutions. Join us to grow your capital with expert guidance and transparent processes.
             </p>
           </div>
 
@@ -56,27 +58,28 @@ export function Footer() {
              {/* Optional: Add Social Media Icons here */}
           </div>
 
-           {/* Newsletter Signup (Placeholder) */}
+           {/* Newsletter Signup */}
            <div>
              <h4 className="font-semibold text-foreground mb-4">Newsletter</h4>
              <p className="text-sm mb-3">Stay updated with our latest news and offers.</p>
-             {/* Basic placeholder - implement actual form logic if needed */}
              <form className="flex flex-col sm:flex-row gap-2">
-                <input type="email" placeholder="Enter your email" className="flex-grow h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" />
-                 <button type="submit" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2">
+                <Input type="email" placeholder="Enter your email" className="flex-grow" aria-label="Newsletter email input" />
+                 <Button type="submit">
                     Subscribe
-                </button>
+                </Button>
             </form>
           </div>
         </div>
 
         {/* Copyright */}
         <div className="text-center text-xs border-t border-border/40 pt-8">
-          <p>&copy; {new Date().getFullYear()} Yard Trades. All Rights Reserved.</p>
+          <p>&copy; {new Date().getFullYear()} YardTrades. All Rights Reserved.</p>
           {/* Optional: Add links to Privacy Policy, Terms of Service */}
-          {/* <p className="mt-1">
-            <Link href="/privacy" className="hover:text-primary">Privacy Policy</Link> | <Link href="/terms" className="hover:text-primary">Terms of Service</Link>
-          </p> */}
+          <p className="mt-1 space-x-2">
+            <Link href="/privacy" className="hover:text-primary">Privacy Policy</Link>
+            <span>|</span>
+            <Link href="/terms" className="hover:text-primary">Terms of Service</Link>
+          </p>
         </div>
       </div>
     </footer>
