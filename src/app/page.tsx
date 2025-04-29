@@ -108,6 +108,15 @@ export default function Home() {
          {/* Subtle pattern overlay */}
          <div className="absolute inset-0 bg-[radial-gradient(theme(colors.primary/0.03)_1px,transparent_1px)] [background-size:16px_16px] z-[-1] opacity-30"></div>
          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-[-1]"></div> {/* Gradient overlay */}
+         {/* Background Image */}
+         <Image
+            src="https://picsum.photos/seed/crypto_bg/1920/1080" // Placeholder image - replace with a high-quality, relevant one
+            alt="Cryptocurrency background"
+            layout="fill"
+            objectFit="cover"
+            quality={85}
+            className="absolute inset-0 z-[-2] opacity-20 pointer-events-none" // Place behind other elements, low opacity
+          />
 
          <div className="container mx-auto px-4 relative z-10">
            <div className="max-w-3xl mx-auto text-center">
@@ -316,33 +325,3 @@ export default function Home() {
     </div>
   );
 }
-
-// Add keyframes for animations in globals.css or a separate CSS file
-/* Example keyframes (add to src/app/globals.css within @layer utilities or base)
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-15px); }
-}
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.animate-float {
-  animation: float linear infinite;
-}
-.animate-fade-in-up {
-    animation: fade-in-up 0.6s ease-out forwards;
-    opacity: 0; /* Start hidden */
-}
-.animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
-}
-
-.animation-delay-200 { animation-delay: 0.2s; }
-.animation-delay-400 { animation-delay: 0.4s; }
-*/
