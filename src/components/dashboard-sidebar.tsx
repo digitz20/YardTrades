@@ -55,11 +55,11 @@ export function DashboardSidebar() {
   };
 
   return (
-    // The parent Sheet component in layout handles visibility on mobile
-    // This component structure remains the same for both desktop and mobile Sheet display
-    <aside className="flex h-full flex-col border-r bg-background"> {/* Changed hidden md:flex */}
+    // Sidebar container: flex-col, border-r, bg-background define the vertical layout and appearance.
+    // Width is controlled by the parent layout (md:w-64).
+    <aside className="flex h-full flex-col border-r bg-background"> {/* Ensure height is full and flex column */}
       {/* Header Section */}
-       <div className="flex h-14 items-center border-b px-4 lg:px-6">
+       <div className="flex h-14 items-center border-b px-4 lg:px-6 shrink-0"> {/* shrink-0 prevents header from shrinking */}
         <Link href="/dashboard" className="flex items-center gap-2 font-semibold text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm">
           <TrendingUp className="h-6 w-6" />
           <span className="text-lg text-foreground">Yard Trades</span>
@@ -67,7 +67,7 @@ export function DashboardSidebar() {
         {/* Optional: Add a button here for desktop collapse if needed */}
       </div>
 
-       {/* Navigation Section */}
+       {/* Navigation Section - flex-1 allows it to grow and push footer down, overflow-y-auto enables scrolling */}
        <nav className="flex-1 overflow-y-auto px-2 py-4 space-y-1 lg:px-4">
         {navItems.map((item) => (
           <Button
@@ -87,8 +87,8 @@ export function DashboardSidebar() {
         ))}
       </nav>
 
-       {/* Footer Section */}
-       <div className="mt-auto border-t p-4 space-y-4">
+       {/* Footer Section - shrink-0 prevents footer from shrinking */}
+       <div className="mt-auto border-t p-4 space-y-4 shrink-0">
            {/* User Info */}
            <div className="flex items-center gap-3">
                 <Avatar className="h-9 w-9">
