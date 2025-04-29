@@ -91,14 +91,21 @@ export default function Home() {
               <p className="text-lg md:text-xl text-gray-200 mb-8">
                 Invest with confidence. YardTrades offers secure, high-yield investment plans tailored for your financial growth. Start building your future today.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                {/* Updated Button: "Start Trading" links to signup */}
+              {/* Updated Button Container */}
+              <div className="flex flex-wrap gap-4">
+                {/* Button: "Start Trading" links to signup */}
                 <Button size="lg" asChild>
                   <Link href="/signup">Start Trading</Link>
                 </Button>
-                {/* Updated Button: "View Trading Plans" links to plans section */}
+                {/* Button: "View Trading Plans" links to plans section */}
                 <Button size="lg" variant="outline" asChild className="border-gray-300 text-gray-100 hover:bg-white/10 hover:text-white">
                    <Link href="/#plans">View Trading Plans</Link>
+                </Button>
+                {/* Button: Functional Invest in Crypto button - MOVED HERE */}
+                <Button size="lg" variant="secondary" asChild>
+                    <Link href="/crypto-invest">
+                         <Bitcoin className="mr-2 h-5 w-5" /> Invest in Crypto
+                    </Link>
                 </Button>
               </div>
             </div>
@@ -266,18 +273,13 @@ export default function Home() {
            <div className="container mx-auto px-4 text-center relative z-10">
                <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Start Earning?</h2>
                <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-                   Join thousands of satisfied investors who trust YardTrades. Create your account today or explore our crypto investment options.
+                   Join thousands of satisfied investors who trust YardTrades. Create your account today.
                </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                    <Button size="lg" asChild>
                        <Link href="/signup">Create Free Account</Link>
                    </Button>
-                   {/* Updated Button: Functional Invest in Crypto button */}
-                   <Button size="lg" variant="secondary" asChild>
-                       <Link href="/crypto-invest">
-                            <Bitcoin className="mr-2 h-5 w-5" /> Invest in Crypto
-                       </Link>
-                   </Button>
+                   {/* Invest in Crypto button was MOVED to Hero section */}
                </div>
            </div>
        </section>
