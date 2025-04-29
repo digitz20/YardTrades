@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation'; // Import useRouter
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -31,6 +32,7 @@ type LoginFormInputs = z.infer<typeof loginFormSchema>;
 
 export default function LoginPage() {
   const { toast } = useToast();
+  const router = useRouter(); // Initialize useRouter
 
   const form = useForm<LoginFormInputs>({
     resolver: zodResolver(loginFormSchema),
@@ -46,23 +48,26 @@ export default function LoginPage() {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Example: Check credentials (replace with actual auth logic)
-    if (data.email === 'user@example.com' && data.password === 'password') {
+    // For demo purposes, let's assume any login is successful
+    // In a real app, verify credentials against a backend/database
+    // if (data.email === 'user@example.com' && data.password === 'password') {
         toast({
           title: "Login Successful!",
           description: "Redirecting to your dashboard...",
           variant: "default",
         });
-        // Redirect user (e.g., using next/navigation useRouter)
-        // router.push('/dashboard');
-         console.log("Redirecting to dashboard..."); // Placeholder
-         form.reset();
-    } else {
-         toast({
-           title: "Login Failed",
-           description: "Invalid email or password. Please try again.",
-           variant: "destructive",
-         });
-    }
+        // Redirect user to the dashboard
+        router.push('/dashboard'); // Redirect to dashboard
+         console.log("Redirecting to dashboard...");
+         // Keep form reset if needed, though redirect might make it less necessary
+         // form.reset();
+    // } else {
+    //      toast({
+    //        title: "Login Failed",
+    //        description: "Invalid email or password. Please try again.",
+    //        variant: "destructive",
+    //      });
+    // }
   };
 
   return (

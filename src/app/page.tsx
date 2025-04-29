@@ -1,10 +1,11 @@
+
 "use client";
 
 import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { CheckCircle, DollarSign, BarChart, Users } from 'lucide-react';
+import { CheckCircle, DollarSign, BarChart, Users, Bitcoin } from 'lucide-react'; // Added Bitcoin icon
 import Image from 'next/image';
 
 // Mock investment plan data
@@ -16,6 +17,7 @@ const investmentPlans = [
     duration: '24 Hours',
     roi: '10%',
     features: ['Instant Withdrawal', '24/7 Support'],
+    id: 'starter', // Added ID for potential linking
   },
   {
     title: 'Silver Plan',
@@ -24,6 +26,7 @@ const investmentPlans = [
     duration: '48 Hours',
     roi: '25%',
     features: ['Instant Withdrawal', '24/7 Support', 'Dedicated Manager'],
+    id: 'silver', // Added ID
   },
   {
     title: 'Gold Plan',
@@ -32,6 +35,7 @@ const investmentPlans = [
     duration: '72 Hours',
     roi: '60%',
     features: ['Instant Withdrawal', '24/7 Support', 'Dedicated Manager', 'Premium Signals'],
+    id: 'gold', // Added ID
   },
 ];
 
@@ -82,8 +86,8 @@ export default function Home() {
             Choose the plan that best suits your investment goals and start earning returns quickly.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {investmentPlans.map((plan, index) => (
-              <Card key={index} className="bg-card border border-border/50 shadow-lg flex flex-col">
+            {investmentPlans.map((plan) => ( // Removed index as key, using plan.id
+              <Card key={plan.id} className="bg-card border border-border/50 shadow-lg flex flex-col">
                 <CardHeader className="bg-muted/30 p-6">
                   <CardTitle className="text-2xl font-semibold text-primary">{plan.title}</CardTitle>
                    <CardDescription>Min: {plan.minDeposit} | Max: {plan.maxDeposit}</CardDescription>
@@ -102,7 +106,8 @@ export default function Home() {
                      </ul>
                    </div>
                    <Button className="w-full mt-auto" asChild>
-                       <Link href="/signup">Invest Now</Link>
+                       {/* Link to signup or specific investment page if needed */}
+                       <Link href={`/signup?plan=${plan.id}`}>Invest Now</Link>
                    </Button>
                 </CardContent>
               </Card>
@@ -167,11 +172,18 @@ export default function Home() {
            <div className="container mx-auto px-4 text-center">
                <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Start Earning?</h2>
                <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
-                   Join thousands of satisfied investors who trust Yard Trades. Create your account today and take the first step towards financial freedom.
+                   Join thousands of satisfied investors who trust Yard Trades. Create your account today or explore our crypto investment options.
                </p>
-               <Button size="lg" asChild>
-                   <Link href="/signup">Create Free Account</Link>
-               </Button>
+                <div className="flex flex-col sm:flex-row justify-center gap-4">
+                   <Button size="lg" asChild>
+                       <Link href="/signup">Create Free Account</Link>
+                   </Button>
+                   <Button size="lg" variant="secondary" asChild>
+                       <Link href="/crypto-invest">
+                            <Bitcoin className="mr-2 h-5 w-5" /> Invest in Crypto
+                       </Link>
+                   </Button>
+               </div>
            </div>
        </section>
 
