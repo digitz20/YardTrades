@@ -45,15 +45,15 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span>123 Investment Lane, Finance City, FC 12345</span>
+                <span>114, Lombard street, Canary Wharf, United Kingdom</span> {/* Updated Address */}
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                <a href="mailto:support@yardtrades.example.com" className="hover:text-primary transition-colors">support@yardtrades.example.com</a>
+                <a href="mailto:yardtrades200@gmail.com" className="hover:text-primary transition-colors">yardtrades200@gmail.com</a> {/* Updated Email */}
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                <a href="tel:+1234567890" className="hover:text-primary transition-colors">+1 (234) 567-890</a>
+                <a href="tel:+14326767323" className="hover:text-primary transition-colors">+1(432) 676-7323</a> {/* Updated Phone */}
               </li>
             </ul>
              {/* Optional: Add Social Media Icons here */}
@@ -86,3 +86,4 @@ export function Footer() {
     </footer>
   );
 }
+

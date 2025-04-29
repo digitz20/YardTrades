@@ -1,3 +1,4 @@
+
 'use client';
 
 import React from 'react';
@@ -154,7 +155,7 @@ export default function ContactPage() {
                          </div>
                          <div>
                             <h4 className="font-medium text-foreground">Address</h4>
-                            <p className="text-sm text-muted-foreground">123 Investment Lane, Finance City, FC 12345</p>
+                            <p className="text-sm text-muted-foreground">114, Lombard street, Canary Wharf, United Kingdom</p> {/* Updated Address */}
                          </div>
                        </li>
                        <li className="flex items-start gap-4">
@@ -163,7 +164,7 @@ export default function ContactPage() {
                          </div>
                           <div>
                             <h4 className="font-medium text-foreground">Email</h4>
-                            <a href="mailto:support@yardtrades.example.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">support@yardtrades.example.com</a>
+                            <a href="mailto:yardtrades200@gmail.com" className="text-sm text-muted-foreground hover:text-primary transition-colors">yardtrades200@gmail.com</a> {/* Updated Email */}
                          </div>
                        </li>
                        <li className="flex items-start gap-4">
@@ -172,7 +173,7 @@ export default function ContactPage() {
                          </div>
                          <div>
                             <h4 className="font-medium text-foreground">Phone</h4>
-                            <a href="tel:+1234567890" className="text-sm text-muted-foreground hover:text-primary transition-colors">+1 (234) 567-890</a>
+                            <a href="tel:+14326767323" className="text-sm text-muted-foreground hover:text-primary transition-colors">+1(432) 676-7323</a> {/* Updated Phone */}
                          </div>
                        </li>
                      </ul>
@@ -207,3 +208,4 @@ export default function ContactPage() {
     </div>
   );
 }
+
