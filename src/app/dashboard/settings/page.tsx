@@ -18,24 +18,30 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-  FormDescription, // Added FormDescription import
+  FormDescription,
 } from "@/components/ui/form";
 import { Separator } from '@/components/ui/separator';
-import { Switch } from '@/components/ui/switch'; // Assuming you have Switch component
+import { Switch } from '@/components/ui/switch';
+import { User, Bell, Mail, MessageSquare, Smartphone, Loader2, Upload } from 'lucide-react'; // Added icons
 
 // Define Zod schema for profile settings form validation
 const profileSettingsSchema = z.object({
-  fullName: z.string().min(3, { message: 'Full name must be at least 3 characters.' }).optional(),
-  email: z.string().email({ message: 'Please enter a valid email address.' }), // Email might be read-only
-  // Add other profile fields as needed, e.g., phone, address
+  fullName: z.string()
+             .min(3, { message: 'Full name must be at least 3 characters.' })
+             .max(50, { message: 'Full name cannot exceed 50 characters.' })
+             .optional(),
+  email: z.string().email({ message: 'Please enter a valid email address.' }), // Email usually read-only after signup
+  // Add other potential profile fields
   // username: z.string().min(3, { message: 'Username must be at least 3 characters.' }).optional(),
+  // phone: z.string().optional(), // Add validation if needed
 });
 
 // Define Zod schema for notification settings
 const notificationSettingsSchema = z.object({
-    emailNotifications: z.boolean().default(true),
-    smsNotifications: z.boolean().default(false),
-    pushNotifications: z.boolean().default(true),
+    emailNotifications: z.boolean().default(true).describe('Receive account summaries and important updates via email.'),
+    marketingEmails: z.boolean().default(true).describe('Receive promotional offers and news from Yard Trades.'),
+    pushNotifications: z.boolean().default(false).describe('Get real-time alerts on your mobile device (requires app installation).'),
+    // smsNotifications: z.boolean().default(false), // Example: SMS notifications might be separate
 });
 
 
@@ -43,15 +49,18 @@ type ProfileSettingsInputs = z.infer<typeof profileSettingsSchema>;
 type NotificationSettingsInputs = z.infer<typeof notificationSettingsSchema>;
 
 
-// Mock user data (Replace with actual data fetching)
+// Mock user data (Replace with actual data fetching and state management)
 const currentUser = {
-    fullName: 'John Doe',
+    id: 'user123',
+    fullName: 'Johnathan Doe', // Changed name slightly
     email: 'john.doe@example.com',
-    avatarUrl: 'https://picsum.photos/seed/johndoe/100/100', // Placeholder
+    avatarUrl: 'https://picsum.photos/seed/j_doe/100/100', // Placeholder
+    // Initial notification settings (fetch from backend)
     notifications: {
         email: true,
-        sms: false,
-        push: true,
+        marketing: true,
+        push: false,
+        // sms: false,
     }
 };
 
@@ -62,69 +71,121 @@ export default function SettingsPage() {
    // Form for Profile Settings
    const profileForm = useForm<ProfileSettingsInputs>({
     resolver: zodResolver(profileSettingsSchema),
+    // Fetch initial values from user data
     defaultValues: {
-      fullName: currentUser.fullName,
-      email: currentUser.email, // Set initial email
-      // Set other default values
+      fullName: currentUser.fullName || '',
+      email: currentUser.email,
     },
   });
 
    // Form for Notification Settings
    const notificationForm = useForm<NotificationSettingsInputs>({
      resolver: zodResolver(notificationSettingsSchema),
+     // Fetch initial values from user data
      defaultValues: {
        emailNotifications: currentUser.notifications.email,
-       smsNotifications: currentUser.notifications.sms,
+       marketingEmails: currentUser.notifications.marketing,
        pushNotifications: currentUser.notifications.push,
+       // smsNotifications: currentUser.notifications.sms,
      },
    });
+
+   const { handleSubmit: handleProfileSubmit, formState: { isSubmitting: isProfileSubmitting } } = profileForm;
+   const { handleSubmit: handleNotificationSubmit, formState: { isSubmitting: isNotificationSubmitting } } = notificationForm;
 
 
    const onProfileSubmit: SubmitHandler<ProfileSettingsInputs> = async (data) => {
     console.log('Profile settings submitted:', data);
-    // Simulate API call to update profile
-    await new Promise(resolve => setTimeout(resolve, 1000));
-     toast({
-       title: "Profile Updated",
-       description: "Your profile information has been saved.",
-       variant: "default",
-     });
+    // **IMPORTANT**: Replace with actual API call to update profile
+    await new Promise(resolve => setTimeout(resolve, 1200)); // Simulate network delay
+    const updateSuccessful = true; // Simulate success
+
+     if (updateSuccessful) {
+         toast({
+           title: "Profile Updated",
+           description: "Your profile information has been saved successfully.",
+           variant: "default",
+         });
+         // Optionally update local user state if needed
+     } else {
+           toast({
+           title: "Update Failed",
+           description: "Could not update your profile. Please try again.",
+           variant: "destructive",
+         });
+     }
    };
 
    const onNotificationSubmit: SubmitHandler<NotificationSettingsInputs> = async (data) => {
      console.log('Notification settings submitted:', data);
-     // Simulate API call to update notification preferences
-     await new Promise(resolve => setTimeout(resolve, 1000));
-     toast({
-       title: "Notifications Updated",
-       description: "Your notification preferences have been saved.",
-       variant: "default",
-     });
+      // **IMPORTANT**: Replace with actual API call to update notification preferences
+     await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network delay
+     const updateSuccessful = true; // Simulate success
+
+     if (updateSuccessful) {
+         toast({
+           title: "Notifications Updated",
+           description: "Your notification preferences have been saved.",
+           variant: "default",
+         });
+         // Optionally update local user state
+     } else {
+         toast({
+           title: "Update Failed",
+           description: "Could not update notification preferences. Please try again.",
+           variant: "destructive",
+         });
+     }
    };
+
+   // Placeholder for avatar upload logic
+   const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            console.log('Avatar file selected:', file.name);
+            // Add actual upload logic here (e.g., upload to storage, update user profile URL)
+            toast({ title: "Avatar Upload", description: "Uploading..." });
+            // Simulate upload
+            setTimeout(() => {
+                toast({ title: "Avatar Updated", description: "Your new avatar is set." });
+                // Update avatar preview if necessary (state management)
+            }, 2000);
+        }
+    };
 
 
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
+       {/* Removed redundant title */}
+      {/* <h1 className="text-3xl font-bold tracking-tight">Settings</h1> */}
 
       {/* Profile Settings Section */}
-      <Card>
+      <Card className="border border-border/60 shadow-sm">
         <CardHeader>
-          <CardTitle>Profile Information</CardTitle>
+          <CardTitle className="flex items-center gap-2 text-xl"><User className="h-5 w-5 text-primary" /> Profile Information</CardTitle>
           <CardDescription>Manage your personal details and account information.</CardDescription>
         </CardHeader>
         <CardContent>
            <Form {...profileForm}>
-             <form onSubmit={profileForm.handleSubmit(onProfileSubmit)} className="space-y-6">
-                {/* Avatar Upload Placeholder */}
-                <div className="flex items-center gap-4">
+             {/* Use handleProfileSubmit */}
+             <form onSubmit={handleProfileSubmit(onProfileSubmit)} className="space-y-6">
+                {/* Avatar Section */}
+                <FormItem className="flex items-center gap-4">
                     <Avatar className="h-16 w-16">
                         <AvatarImage src={currentUser.avatarUrl} alt={currentUser.fullName} />
-                        <AvatarFallback>{currentUser.fullName.charAt(0)}</AvatarFallback>
+                         {/* Simple fallback with initials */}
+                        <AvatarFallback>{currentUser.fullName?.split(' ').map(n => n[0]).join('') || 'U'}</AvatarFallback>
                     </Avatar>
-                    <Button type="button" variant="outline" size="sm">Change Avatar</Button>
-                    {/* Add file input logic here if implementing upload */}
-                </div>
+                     <div className="flex flex-col gap-2">
+                        <Label htmlFor="avatar-upload" className={cn(buttonVariants({ variant: "outline", size: "sm" }), "cursor-pointer")}>
+                           <Upload className="mr-2 h-4 w-4"/> Change Avatar
+                        </Label>
+                        <Input id="avatar-upload" type="file" accept="image/*" className="hidden" onChange={handleAvatarChange} />
+                        <p className="text-xs text-muted-foreground">Recommended: Square image, under 2MB.</p>
+                    </div>
+                </FormItem>
+
+                <Separator/>
 
                <FormField
                  control={profileForm.control}
@@ -146,18 +207,22 @@ export default function SettingsPage() {
                    <FormItem>
                      <FormLabel>Email Address</FormLabel>
                      <FormControl>
-                       {/* Email might be read-only depending on your auth setup */}
-                       <Input type="email" placeholder="you@example.com" {...field} readOnly disabled />
+                       {/* Email is often read-only after signup */}
+                       <Input type="email" placeholder="you@example.com" {...field} readOnly disabled className="cursor-not-allowed bg-muted/50" />
                      </FormControl>
-                      <p className="text-xs text-muted-foreground">Email cannot be changed.</p>
+                      <FormDescription className="text-xs">Email address cannot be changed.</FormDescription>
                      <FormMessage />
                    </FormItem>
                  )}
                />
-                {/* Add other profile fields here */}
+                {/* Add other profile fields here if needed (e.g., Phone) */}
 
-             <Button type="submit" disabled={profileForm.formState.isSubmitting}>
-                {profileForm.formState.isSubmitting ? 'Saving...' : 'Save Profile Changes'}
+             <Button type="submit" disabled={isProfileSubmitting}>
+                {isProfileSubmitting ? (
+                   <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</>
+                ) : (
+                   'Save Profile Changes'
+                )}
              </Button>
              </form>
            </Form>
@@ -167,29 +232,34 @@ export default function SettingsPage() {
        <Separator />
 
        {/* Notification Settings Section */}
-        <Card>
+        <Card className="border border-border/60 shadow-sm">
             <CardHeader>
-                <CardTitle>Notification Preferences</CardTitle>
-                <CardDescription>Control how you receive updates and alerts from Yard Trades.</CardDescription>
+                <CardTitle className="flex items-center gap-2 text-xl"><Bell className="h-5 w-5 text-primary" /> Notification Preferences</CardTitle>
+                <CardDescription>Control how you receive updates, alerts, and news from Yard Trades.</CardDescription>
             </CardHeader>
             <CardContent>
                 <Form {...notificationForm}>
-                   <form onSubmit={notificationForm.handleSubmit(onNotificationSubmit)} className="space-y-6">
+                    {/* Use handleNotificationSubmit */}
+                   <form onSubmit={handleNotificationSubmit(onNotificationSubmit)} className="space-y-6">
                        <FormField
                            control={notificationForm.control}
                            name="emailNotifications"
                            render={({ field }) => (
-                               <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                               <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 bg-muted/30">
                                    <div className="space-y-0.5">
-                                       <FormLabel className="text-base">Email Notifications</FormLabel>
-                                       <FormDescription>
-                                           Receive important updates and reports via email.
+                                       <FormLabel htmlFor="email-notifications" className="text-base font-medium flex items-center gap-2">
+                                          <Mail className="h-4 w-4" /> Email Notifications
+                                       </FormLabel>
+                                       <FormDescription className="text-xs pl-6">
+                                           {notificationSettingsSchema.shape.emailNotifications.description}
                                        </FormDescription>
                                    </div>
                                    <FormControl>
                                        <Switch
+                                           id="email-notifications"
                                            checked={field.value}
                                            onCheckedChange={field.onChange}
+                                           aria-label="Toggle Email Notifications"
                                        />
                                    </FormControl>
                                </FormItem>
@@ -197,20 +267,23 @@ export default function SettingsPage() {
                        />
                         <FormField
                            control={notificationForm.control}
-                           name="smsNotifications"
+                           name="marketingEmails"
                            render={({ field }) => (
-                               <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                               <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 bg-muted/30">
                                    <div className="space-y-0.5">
-                                       <FormLabel className="text-base">SMS Notifications</FormLabel>
-                                       <FormDescription>
-                                           Get critical alerts via text message (charges may apply).
+                                       <FormLabel htmlFor="marketing-emails" className="text-base font-medium flex items-center gap-2">
+                                           <MessageSquare className="h-4 w-4" /> Marketing Emails
+                                       </FormLabel>
+                                       <FormDescription className="text-xs pl-6">
+                                           {notificationSettingsSchema.shape.marketingEmails.description}
                                        </FormDescription>
                                    </div>
                                    <FormControl>
                                        <Switch
+                                           id="marketing-emails"
                                            checked={field.value}
                                            onCheckedChange={field.onChange}
-                                            // disabled // Example: Disable if SMS is not configured
+                                           aria-label="Toggle Marketing Emails"
                                        />
                                    </FormControl>
                                </FormItem>
@@ -220,26 +293,34 @@ export default function SettingsPage() {
                            control={notificationForm.control}
                            name="pushNotifications"
                            render={({ field }) => (
-                               <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                               <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 bg-muted/30">
                                    <div className="space-y-0.5">
-                                       <FormLabel className="text-base">Push Notifications</FormLabel>
-                                       <FormDescription>
-                                            Receive real-time updates directly on your device (App required).
+                                       <FormLabel htmlFor="push-notifications" className="text-base font-medium flex items-center gap-2">
+                                            <Smartphone className="h-4 w-4" /> Push Notifications
+                                       </FormLabel>
+                                       <FormDescription className="text-xs pl-6">
+                                            {notificationSettingsSchema.shape.pushNotifications.description}
                                        </FormDescription>
                                    </div>
                                    <FormControl>
                                        <Switch
+                                           id="push-notifications"
                                            checked={field.value}
                                            onCheckedChange={field.onChange}
-                                           disabled // Example: Disable if no app exists
+                                           disabled // Example: Disable if no mobile app integration exists
+                                           aria-label="Toggle Push Notifications"
                                        />
                                    </FormControl>
                                </FormItem>
                            )}
                        />
 
-                       <Button type="submit" disabled={notificationForm.formState.isSubmitting}>
-                            {notificationForm.formState.isSubmitting ? 'Saving...' : 'Save Notification Preferences'}
+                       <Button type="submit" disabled={isNotificationSubmitting}>
+                            {isNotificationSubmitting ? (
+                                <> <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</>
+                            ) : (
+                                'Save Notification Preferences'
+                            )}
                        </Button>
                    </form>
                 </Form>
@@ -247,7 +328,11 @@ export default function SettingsPage() {
         </Card>
 
 
-         {/* Add other settings sections like Language, Theme, etc. as needed */}
+         {/* Add other settings sections like Language, Theme, API Keys etc. as needed */}
+          {/* Example:
+           <Separator />
+           <Card>...</Card>
+          */}
 
     </div>
   );

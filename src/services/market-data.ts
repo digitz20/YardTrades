@@ -21,23 +21,27 @@ const forexPairs: CurrencyPair[] = [
 
 /**
  * Asynchronously retrieves market data.
- * Attempts to fetch live data from CoinGecko, falling back to mock data on error.
+ * Attempts to fetch live data from CoinGecko (free tier), falling back to mock data on error.
  *
  * @param type The type of market data to retrieve ('crypto' or 'forex'). Defaults to 'crypto'.
  * @returns A promise that resolves to an array of CurrencyPair objects.
  */
 export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promise<CurrencyPair[]> {
-  // Only fetch live data for crypto
+  // Only fetch live data for crypto using the free CoinGecko API
  if (type === 'crypto') {
     console.log(`Attempting to fetch live ${type} market data from CoinGecko...`);
     try {
-      // Using CoinGecko API as it has free public endpoints
+      // Using CoinGecko API as it has free public endpoints suitable for basic display
       const assetsToFetch = ['bitcoin', 'ethereum', 'binancecoin', 'solana', 'dogecoin'];
-      const apiUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${assetsToFetch.join(',')}&order=market_cap_desc&per_page=100&page=1&sparkline=false&locale=en`;
+      // Fetch top 5 coins by market cap, getting current price and 24h change vs USD
+      const apiUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${assetsToFetch.join(',')}&order=market_cap_desc&per_page=5&page=1&sparkline=false&price_change_percentage=24h&locale=en`;
       console.log("API URL:", apiUrl);
 
       const response = await fetch(apiUrl, {
         method: 'GET',
+        headers: {
+            'accept': 'application/json' // Required header for CoinGecko API
+        }
         // No API key needed for this public CoinGecko endpoint
       });
 
@@ -50,15 +54,22 @@ export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promis
       const data = await response.json();
       console.log("CoinGecko API Response Data:", data);
 
+      if (!Array.isArray(data)) {
+          console.error("CoinGecko API response is not an array:", data);
+          throw new Error("Invalid API response format from CoinGecko.");
+      }
+
       const processedData: CurrencyPair[] = data.map((item: any) => {
-        console.log("Mapping CoinGecko item:", item);
+        // console.log("Mapping CoinGecko item:", item); // Uncomment for detailed item logging if needed
         const symbol = (item.symbol + 'USD').toUpperCase(); // e.g., BTCUSD
         const name = item.name + " / US Dollar"; // e.g., Bitcoin / US Dollar
         const price = item.current_price;
-        const percentageChange = item.price_change_percentage_24h; // Use the 24h percentage change
+        // Make sure to use the correct field name for 24h percentage change
+        const percentageChange = item.price_change_percentage_24h;
 
-        if (typeof price !== 'number' || typeof percentageChange !== 'number') {
-          console.warn(`Invalid data types for ${symbol}: price=${price}, change=${percentageChange}. Skipping.`);
+        // Basic validation
+        if (typeof item.symbol !== 'string' || typeof name !== 'string' || typeof price !== 'number' || typeof percentageChange !== 'number') {
+          console.warn(`Invalid data types for item ${item.id}: symbol=${item.symbol}, name=${name}, price=${price}, change=${percentageChange}. Skipping.`);
           return null; // Skip this item if data is invalid
         }
 
@@ -71,8 +82,6 @@ export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promis
       })
       .filter((item: CurrencyPair | null): item is CurrencyPair => item !== null); // Filter out any null items
 
-        // We don't strictly need to slice here unless CoinGecko returns more than we asked for
-        // const limitedData = processedData.slice(0, assetsToFetch.length);
 
         if (processedData.length === 0){
            console.warn("CoinGecko returned no valid data for the requested assets. Using fallback crypto data.");
@@ -88,7 +97,7 @@ export async function getMarketData(type: 'crypto' | 'forex' = 'crypto'): Promis
       return cryptoPairs; // Fallback to mock data on any error
     }
   } else if (type === 'forex') {
-    console.log("Returning mock Forex data.");
+    console.log("Returning mock Forex data. (Live fetching not implemented)");
     // Forex data fetching not implemented, return mock data
     return forexPairs;
   }

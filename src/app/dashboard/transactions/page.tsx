@@ -1,29 +1,35 @@
 
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { ArrowDownLeft, ArrowUpRight, CircleDollarSign } from 'lucide-react';
-import { format } from 'date-fns'; // For date formatting
+import { ArrowDownLeft, ArrowUpRight, CircleDollarSign, Filter, Download } from 'lucide-react'; // Added Filter, Download
+import { format } from 'date-fns';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input'; // For potential filtering
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'; // For filtering/sorting
 
-// Mock Data (Replace with actual data fetching)
-const transactionsData = [
-  { id: 'txn001', type: 'Deposit', method: 'Crypto (BTC)', amount: 1000, date: new Date(2024, 6, 15, 10, 30), status: 'Completed' },
-  { id: 'txn002', type: 'Investment', method: 'Gold Plan', amount: 500, date: new Date(2024, 6, 16, 9, 0), status: 'Active' },
-  { id: 'txn003', type: 'Withdrawal', method: 'Bank Transfer', amount: 250, date: new Date(2024, 6, 18, 14, 0), status: 'Completed' },
-  { id: 'txn004', type: 'Deposit', method: 'Crypto (ETH)', amount: 500, date: new Date(2024, 6, 20, 11, 15), status: 'Pending' },
-  { id: 'txn005', type: 'Profit Payout', method: 'Silver Plan', amount: 120, date: new Date(2024, 6, 22, 16, 45), status: 'Completed' },
+// Mock Data (Replace with actual data fetching logic, potentially with pagination)
+const allTransactionsData = [
+  { id: 'txn001', type: 'Deposit', method: 'Crypto (BTC)', amount: 1000.00, date: new Date(2024, 6, 15, 10, 30), status: 'Completed' },
+  { id: 'txn002', type: 'Investment', method: 'Gold Plan', amount: -500.00, date: new Date(2024, 6, 16, 9, 0), status: 'Active' }, // Note: Investment is a negative flow from balance
+  { id: 'txn003', type: 'Withdrawal', method: 'Bank Transfer', amount: -250.00, date: new Date(2024, 6, 18, 14, 0), status: 'Completed' },
+  { id: 'txn004', type: 'Deposit', method: 'Crypto (ETH)', amount: 500.00, date: new Date(2024, 6, 20, 11, 15), status: 'Pending' },
+  { id: 'txn005', type: 'Profit Payout', method: 'Silver Plan', amount: 120.50, date: new Date(2024, 6, 22, 16, 45), status: 'Completed' },
+  { id: 'txn006', type: 'Investment', method: 'Starter Plan', amount: -100.00, date: new Date(2024, 5, 10, 8, 0), status: 'Completed' },
+  { id: 'txn007', type: 'Deposit', method: 'Card Deposit', amount: 200.00, date: new Date(2024, 5, 5, 12, 0), status: 'Failed' },
+  { id: 'txn008', type: 'Withdrawal', method: 'Crypto (BTC)', amount: -150.75, date: new Date(2024, 4, 28, 10, 0), status: 'Completed' },
 ];
 
 // Helper to get status badge variant
 const getStatusVariant = (status: string): "default" | "secondary" | "outline" | "destructive" => {
   switch (status.toLowerCase()) {
-    case 'completed': return 'default'; // Or success variant if you add one
-    case 'pending': return 'secondary';
-    case 'active': return 'outline'; // Or info variant
-    case 'failed': return 'destructive';
+    case 'completed': return 'default'; // Using ShadCN default (often blue/primary based) - consider adding a 'success' variant
+    case 'pending': return 'secondary'; // Greyish
+    case 'active': return 'outline'; // Outline style
+    case 'failed': return 'destructive'; // Red
     default: return 'secondary';
   }
 };
@@ -31,72 +37,137 @@ const getStatusVariant = (status: string): "default" | "secondary" | "outline" |
 // Helper to get type icon and color
 const getTypeDetails = (type: string) => {
    switch (type.toLowerCase()) {
-    case 'deposit': return { icon: ArrowDownLeft, color: 'text-green-600' };
-    case 'withdrawal': return { icon: ArrowUpRight, color: 'text-red-600' };
-    case 'investment': return { icon: CircleDollarSign, color: 'text-blue-600' };
-     case 'profit payout': return { icon: CircleDollarSign, color: 'text-yellow-600' };
+    case 'deposit': return { icon: ArrowDownLeft, color: 'text-green-500' }; // Green for incoming
+    case 'withdrawal': return { icon: ArrowUpRight, color: 'text-red-500' }; // Red for outgoing
+    case 'investment': return { icon: CircleDollarSign, color: 'text-blue-500' }; // Blue for investment placement
+    case 'profit payout': return { icon: CircleDollarSign, color: 'text-yellow-500' }; // Yellow/Gold for earnings
     default: return { icon: CircleDollarSign, color: 'text-muted-foreground' };
   }
 }
 
 export default function TransactionsPage() {
+    // State for filtering (example)
+    const [filterType, setFilterType] = useState<string>('all');
+    const [filterStatus, setFilterStatus] = useState<string>('all');
+    // In a real app, you'd fetch data based on filters or filter client-side if data set is small
+
+    const filteredTransactions = allTransactionsData.filter(txn => {
+        const typeMatch = filterType === 'all' || txn.type.toLowerCase() === filterType.toLowerCase();
+        const statusMatch = filterStatus === 'all' || txn.status.toLowerCase() === filterStatus.toLowerCase();
+        return typeMatch && statusMatch;
+    });
+
+    // Placeholder for CSV export function
+    const handleExport = () => {
+        alert("CSV Export functionality placeholder");
+        // Implement CSV generation logic here (e.g., using a library like papaparse)
+    }
+
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold tracking-tight">Transactions</h1>
+      {/* Removed redundant title */}
+      {/* <h1 className="text-3xl font-bold tracking-tight">Transactions</h1> */}
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Transaction History</CardTitle>
-          <CardDescription>View all your deposits, withdrawals, and investment activities.</CardDescription>
+      <Card className="border border-border/60 shadow-sm">
+        <CardHeader className="border-b pb-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+             <div>
+               <CardTitle>Transaction History</CardTitle>
+               <CardDescription>View all your deposits, withdrawals, investments, and earnings.</CardDescription>
+             </div>
+             <div className="flex flex-wrap items-center gap-2">
+                 {/* Filtering Options */}
+                 <Select value={filterType} onValueChange={setFilterType}>
+                     <SelectTrigger className="w-[150px] h-9 text-xs">
+                         <SelectValue placeholder="Filter by Type" />
+                     </SelectTrigger>
+                     <SelectContent>
+                         <SelectItem value="all">All Types</SelectItem>
+                         <SelectItem value="Deposit">Deposits</SelectItem>
+                         <SelectItem value="Withdrawal">Withdrawals</SelectItem>
+                         <SelectItem value="Investment">Investments</SelectItem>
+                         <SelectItem value="Profit Payout">Profit Payouts</SelectItem>
+                     </SelectContent>
+                 </Select>
+                  <Select value={filterStatus} onValueChange={setFilterStatus}>
+                     <SelectTrigger className="w-[150px] h-9 text-xs">
+                         <SelectValue placeholder="Filter by Status" />
+                     </SelectTrigger>
+                     <SelectContent>
+                         <SelectItem value="all">All Statuses</SelectItem>
+                         <SelectItem value="Completed">Completed</SelectItem>
+                         <SelectItem value="Pending">Pending</SelectItem>
+                         <SelectItem value="Active">Active</SelectItem>
+                         <SelectItem value="Failed">Failed</SelectItem>
+                     </SelectContent>
+                 </Select>
+                 {/* <Button variant="outline" size="sm" className="h-9">
+                     <Filter className="mr-2 h-4 w-4" /> Filter
+                 </Button> */}
+                 <Button variant="outline" size="sm" className="h-9" onClick={handleExport}>
+                     <Download className="mr-2 h-4 w-4" /> Export CSV
+                 </Button>
+             </div>
+          </div>
         </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Type</TableHead>
-                <TableHead>Method / Details</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-                <TableHead>Date</TableHead>
-                <TableHead className="text-center">Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {transactionsData.length > 0 ? (
-                transactionsData.map((txn) => {
-                   const { icon: Icon, color } = getTypeDetails(txn.type);
-                   return (
-                      <TableRow key={txn.id}>
-                        <TableCell className="font-medium">
-                          <div className="flex items-center gap-2">
-                             <Icon className={`h-4 w-4 ${color}`} />
-                             <span className={color}>{txn.type}</span>
-                           </div>
-                        </TableCell>
-                        <TableCell>{txn.method}</TableCell>
-                        <TableCell className={`text-right font-medium ${txn.type === 'Withdrawal' ? 'text-red-600' : ''}`}>
-                          {txn.type === 'Deposit' || txn.type === 'Profit Payout' ? '+' : ''}
-                          {txn.type === 'Withdrawal' || txn.type === 'Investment' ? '-' : ''}
-                          ${txn.amount.toLocaleString()}
-                        </TableCell>
-                        <TableCell>{format(txn.date, 'PPp')}</TableCell>{/* Format date */}
-                        <TableCell className="text-center">
-                          <Badge variant={getStatusVariant(txn.status)}>
-                            {txn.status}
-                          </Badge>
-                        </TableCell>
-                      </TableRow>
-                   )
-                 })
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={5} className="text-center text-muted-foreground">
-                    No transactions found.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
+        <CardContent className="p-0">
+           <div className="overflow-x-auto">
+              <Table>
+                <TableHeader className="bg-muted/50">
+                  <TableRow>
+                    <TableHead className="pl-6 w-[150px]">Type</TableHead>
+                    <TableHead>Details / Method</TableHead>
+                    <TableHead className="text-right">Amount (USD)</TableHead>
+                    <TableHead className="w-[180px]">Date</TableHead>
+                    <TableHead className="text-center pr-6 w-[120px]">Status</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredTransactions.length > 0 ? (
+                    filteredTransactions.map((txn) => {
+                       const { icon: Icon, color } = getTypeDetails(txn.type);
+                       const isPositive = txn.type.toLowerCase() === 'deposit' || txn.type.toLowerCase() === 'profit payout';
+                       const amountColor = isPositive ? 'text-green-500' : (txn.type.toLowerCase() === 'withdrawal' || txn.type.toLowerCase() === 'investment' ? 'text-red-500' : 'text-foreground');
+
+                       return (
+                          <TableRow key={txn.id} className="hover:bg-muted/30 transition-colors">
+                            <TableCell className="font-medium pl-6">
+                              <div className={`flex items-center gap-2 ${color}`}>
+                                 <Icon className={`h-4 w-4`} />
+                                 <span>{txn.type}</span>
+                               </div>
+                            </TableCell>
+                            <TableCell className="text-muted-foreground">{txn.method}</TableCell>
+                            <TableCell className={`text-right font-semibold ${amountColor}`}>
+                              {isPositive ? '+' : ''}
+                              ${txn.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            </TableCell>
+                            <TableCell className="text-muted-foreground">{format(txn.date, 'PP p')}</TableCell> {/* Format date with time */}
+                            <TableCell className="text-center pr-6">
+                              <Badge variant={getStatusVariant(txn.status)} className="capitalize text-xs">
+                                {txn.status}
+                              </Badge>
+                            </TableCell>
+                          </TableRow>
+                       )
+                     })
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={5} className="h-24 text-center text-muted-foreground">
+                        No transactions match the current filters.
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+           </div>
         </CardContent>
+        {/* Add Pagination Controls here if implementing pagination */}
+        {/* <CardFooter className="flex justify-end border-t pt-4">
+            <Button variant="outline" size="sm">Previous</Button>
+            <span className="mx-4 text-sm text-muted-foreground">Page 1 of 10</span>
+            <Button variant="outline" size="sm">Next</Button>
+        </CardFooter> */}
       </Card>
     </div>
   );

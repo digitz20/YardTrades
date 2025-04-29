@@ -2,12 +2,11 @@
 'use client'; // Add 'use client' because we need hooks (useRouter)
 
 import React from 'react';
-import { useRouter } from 'next/navigation'; // Import useRouter
+import { useRouter, usePathname } from 'next/navigation'; // Import useRouter and usePathname
 import { DashboardSidebar } from '@/components/dashboard-sidebar';
-// import { Header } from '@/components/header'; // Header likely not needed in dashboard layout
-// import { Footer } from '@/components/footer'; // Footer likely not needed in dashboard layout
-import { Button } from '@/components/ui/button'; // Import Button
-import { ArrowLeft, ArrowRight } from 'lucide-react'; // Import icons
+import { Button } from '@/components/ui/button';
+import { ArrowLeft, ArrowRight, Home, Menu } from 'lucide-react'; // Import icons
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'; // Import Sheet components for mobile
 
 export default function DashboardLayout({
   children,
@@ -15,30 +14,67 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname(); // Get current path for title
+
+  // Function to generate a user-friendly title from the pathname
+  const getPageTitle = (path: string): string => {
+    const segments = path.split('/').filter(Boolean); // Remove empty segments
+    if (segments.length <= 1) return 'Dashboard'; // Default for /dashboard
+    const lastSegment = segments[segments.length - 1];
+    // Capitalize first letter and replace dashes with spaces
+    return lastSegment.charAt(0).toUpperCase() + lastSegment.slice(1).replace(/-/g, ' ');
+  };
+
+  const pageTitle = getPageTitle(pathname);
 
   return (
-    <div className="flex min-h-screen flex-col">
-       {/* Optional: Keep Header/Footer or replace with Dashboard specific ones */}
-       {/* <Header /> */}
-       <div className="flex flex-1">
-        <DashboardSidebar />
-        <main className="flex-1 flex flex-col bg-muted/40"> {/* Use flex-col */}
-           {/* Dashboard Top Bar for Navigation */}
-           <div className="flex items-center justify-start gap-2 border-b bg-background p-2 px-4 sticky top-0 z-10">
-              <Button variant="outline" size="icon" onClick={() => router.back()} aria-label="Go back">
+    <div className="flex min-h-screen flex-col md:flex-row bg-muted/40"> {/* Adjust flex direction for mobile vs desktop */}
+      {/* Sidebar for Desktop */}
+      <DashboardSidebar />
+
+      {/* Main Content Area */}
+      <main className="flex-1 flex flex-col">
+        {/* Dashboard Top Bar */}
+        <header className="flex h-14 items-center gap-4 border-b bg-background px-4 md:px-6 sticky top-0 z-30">
+           {/* Mobile Sidebar Toggle */}
+           <Sheet>
+             <SheetTrigger asChild>
+                <Button variant="outline" size="icon" className="shrink-0 md:hidden" aria-label="Toggle navigation menu">
+                   <Menu className="h-5 w-5" />
+                </Button>
+             </SheetTrigger>
+             <SheetContent side="left" className="flex flex-col p-0 w-64"> {/* Apply sidebar styles */}
+                {/* Re-render sidebar content inside sheet */}
+                <DashboardSidebar />
+             </SheetContent>
+          </Sheet>
+
+           {/* Navigation and Title */}
+           <div className="flex items-center gap-2 flex-1">
+              <Button variant="outline" size="icon" className="h-8 w-8 hidden sm:inline-flex" onClick={() => router.back()} aria-label="Go back">
                 <ArrowLeft className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="icon" onClick={() => router.forward()} aria-label="Go forward">
+              <Button variant="outline" size="icon" className="h-8 w-8 hidden sm:inline-flex" onClick={() => router.forward()} aria-label="Go forward">
                 <ArrowRight className="h-4 w-4" />
               </Button>
-            </div>
-           {/* Main Content Area */}
-           <div className="flex-1 p-6 md:p-8 lg:p-10 overflow-y-auto"> {/* Add overflow for scrolling */}
-              {children}
+               <h1 className="font-semibold text-lg ml-2 md:ml-0">{pageTitle}</h1> {/* Display dynamic page title */}
            </div>
-        </main>
-      </div>
-       {/* <Footer /> */}
+
+           {/* Optional: User Menu/Actions on the right */}
+           <div className="flex items-center gap-4 md:ml-auto">
+               {/* Example: Back to main site button */}
+              <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => router.push('/')} aria-label="Back to Homepage">
+                <Home className="h-4 w-4" />
+              </Button>
+              {/* Add User Dropdown/Avatar here */}
+           </div>
+        </header>
+
+        {/* Page Content */}
+        <div className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto"> {/* Add padding and overflow */}
+           {children}
+        </div>
+      </main>
     </div>
   );
 }
