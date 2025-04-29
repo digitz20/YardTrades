@@ -74,25 +74,32 @@ export default function Home() {
       <section className="relative bg-gradient-to-br from-primary/20 via-background to-background py-20 md:py-32 text-foreground overflow-hidden">
         {/* High-quality Crypto Background Image Suggestion */}
         <Image
-          src="https://picsum.photos/seed/cryptohero/1920/1080" // Placeholder - Replace with actual high-quality crypto background
-          alt="Cryptocurrency background"
+          src="https://picsum.photos/seed/finance/1920/1080" // Placeholder - Changed seed for a potentially more finance-related image
+          alt="Financial markets background"
           layout="fill"
           objectFit="cover"
-          className="absolute inset-0 z-0 opacity-20 blur-sm"
+          className="absolute inset-0 z-0 opacity-15 blur-sm" // Reduced opacity
           priority // Load image early
         />
-        <div className="absolute inset-0 bg-black/50 z-0"></div> {/* Dark overlay for text contrast */}
+        {/* Subtle pattern overlay */}
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff11_1px,transparent_1px)] [background-size:16px_16px] z-0 opacity-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-0"></div> {/* Gradient overlay for better text contrast */}
          <div className="container mx-auto px-4 relative z-10">
-           {/* Removed grid layout, content centered or takes full width */}
-           <div className="max-w-3xl mx-auto text-center md:text-left"> {/* Centered content for single column */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 leading-tight text-white shadow-lg">
+           <div className="max-w-3xl mx-auto text-center"> {/* Centered content */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 leading-tight text-white drop-shadow-lg"> {/* Using drop-shadow for text pop */}
                 Secure & Profitable <span className="text-primary">Investments</span> Platform
               </h1>
               <p className="text-lg md:text-xl text-gray-200 mb-8">
                 Invest with confidence. YardTrades offers secure, high-yield investment plans tailored for your financial growth. Start building your future today.
               </p>
               {/* Updated Button Container: Using flex and centering */}
-              <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                 {/* Button: Functional Invest in Crypto button */}
+                 <Button size="lg" variant="secondary" asChild>
+                    <Link href="/crypto-invest">
+                         <Bitcoin className="mr-2 h-5 w-5" /> Invest in Crypto
+                    </Link>
+                </Button>
                 {/* Button: "Start Trading" links to signup */}
                 <Button size="lg" asChild>
                   <Link href="/signup">Start Trading</Link>
@@ -101,15 +108,8 @@ export default function Home() {
                 <Button size="lg" variant="outline" asChild className="border-gray-300 text-gray-100 hover:bg-white/10 hover:text-white">
                    <Link href="/#plans">View Trading Plans</Link>
                 </Button>
-                {/* Button: Functional Invest in Crypto button */}
-                <Button size="lg" variant="secondary" asChild>
-                    <Link href="/crypto-invest">
-                         <Bitcoin className="mr-2 h-5 w-5" /> Invest in Crypto
-                    </Link>
-                </Button>
               </div>
             </div>
-             {/* Image div removed */}
          </div>
       </section>
 

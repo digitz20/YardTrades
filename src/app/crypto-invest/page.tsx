@@ -2,13 +2,13 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link'; // Added import for Link
+import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Copy, Bitcoin, CircleHelp, ShieldCheck } from 'lucide-react'; // Import ShieldCheck
+import { Copy, Bitcoin, CircleHelp, ShieldCheck, DollarSign, Landmark } from 'lucide-react'; // Import DollarSign, Landmark
 import {
   Tooltip,
   TooltipContent,
@@ -31,15 +31,29 @@ const cryptoOptions = [
     name: 'Ethereum',
     symbol: 'ETH',
     address: '0x1234567890abcdef1234567890abcdef12345678', // Example ETH Address
-    icon: Bitcoin, // Replace with appropriate icon if available, using Bitcoin as fallback
+    icon: Landmark, // Using Landmark as a placeholder for ETH logo similarity
     network: 'Ethereum Network (ERC-20)',
   },
   {
-    name: 'Tether',
+    name: 'Tether (ERC20)',
     symbol: 'USDT',
-    address: 'TRC20_ADDRESS_GOES_HERE_EXAMPLE_TETHER', // Example USDT TRC20 Address
-    icon: CircleHelp, // Placeholder icon
+    address: '0xabcdef1234567890abcdef1234567890abcdef12', // Example USDT ERC20 Address
+    icon: DollarSign, // Using DollarSign for USDT
+    network: 'Ethereum Network (ERC-20)',
+  },
+   {
+    name: 'Tether (TRC20)',
+    symbol: 'USDT',
+    address: 'TRC20_ADDRESS_TETHER_GOES_HERE_EXAMPLE_T123', // Example USDT TRC20 Address
+    icon: DollarSign, // Using DollarSign for USDT
     network: 'Tron Network (TRC-20)',
+  },
+   {
+    name: 'Litecoin',
+    symbol: 'LTC',
+    address: 'ltc1qexampleaddresslitecoinplaceholder12345', // Example LTC Address
+    icon: CircleHelp, // Placeholder icon for LTC
+    network: 'Litecoin Network',
   },
   // Add more cryptocurrencies as needed
 ];
@@ -87,12 +101,12 @@ export default function CryptoInvestPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {cryptoOptions.map((crypto) => (
-              <Card key={crypto.symbol} className="bg-card border border-border/50 shadow-sm">
+              <Card key={`${crypto.symbol}-${crypto.network}`} className="bg-card border border-border/50 shadow-sm"> {/* Added network to key */}
                 <CardHeader className="flex flex-row items-center justify-between pb-4">
                   <div className="flex items-center gap-3">
                      <crypto.icon className="h-8 w-8 text-primary" />
                     <div>
-                       <CardTitle className="text-xl">{crypto.name} ({crypto.symbol})</CardTitle>
+                       <CardTitle className="text-xl">{crypto.name}</CardTitle>
                        <CardDescription className="text-xs">{crypto.network}</CardDescription>
                     </div>
                   </div>
@@ -100,12 +114,12 @@ export default function CryptoInvestPage() {
                    {/* <div className="w-12 h-12 bg-muted rounded flex items-center justify-center text-xs">QR</div> */}
                 </CardHeader>
                 <CardContent>
-                   <Label htmlFor={`${crypto.symbol}-address`} className="text-xs font-medium text-muted-foreground block mb-1">
+                   <Label htmlFor={`${crypto.symbol}-${crypto.network}-address`} className="text-xs font-medium text-muted-foreground block mb-1">
                      Deposit Address:
                    </Label>
                   <div className="flex items-center gap-2">
                     <Input
-                      id={`${crypto.symbol}-address`}
+                      id={`${crypto.symbol}-${crypto.network}-address`}
                       type="text"
                       value={crypto.address}
                       readOnly
@@ -155,4 +169,3 @@ export default function CryptoInvestPage() {
     </div>
   );
 }
-

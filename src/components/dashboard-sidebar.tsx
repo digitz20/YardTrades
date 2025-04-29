@@ -3,7 +3,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation'; // Import useRouter
 import { cn } from '@/lib/utils';
 import {
   LayoutDashboard,
@@ -29,6 +29,13 @@ const navItems = [
 
 export function DashboardSidebar() {
   const pathname = usePathname();
+  const router = useRouter(); // Initialize useRouter
+
+  const handleLogout = () => {
+    // Add any actual logout logic here (e.g., clearing tokens, API calls)
+    console.log('Logging out...');
+    router.push('/'); // Redirect to homepage
+  };
 
   return (
     <aside className="hidden md:flex flex-col w-64 border-r bg-background p-4">
@@ -45,8 +52,8 @@ export function DashboardSidebar() {
       {/* Navigation */}
       <nav className="flex-grow space-y-1">
         {navItems.map((item) => (
-          <Link key={item.name} href={item.href}>
-            <Button
+          <Link key={item.name} href={item.href} passHref>
+             <Button
               variant={pathname === item.href ? 'secondary' : 'ghost'}
               className={cn(
                 'w-full justify-start',
@@ -54,7 +61,7 @@ export function DashboardSidebar() {
                   ? 'text-primary font-semibold'
                   : 'text-muted-foreground'
               )}
-            >
+             >
               <item.icon className="mr-2 h-4 w-4" />
               {item.name}
             </Button>
@@ -65,8 +72,12 @@ export function DashboardSidebar() {
       {/* Footer Section */}
       <Separator className="my-4" />
       <div className="mt-auto space-y-1">
-         {/* Example Logout Button */}
-         <Button variant="ghost" className="w-full justify-start text-muted-foreground">
+         {/* Logout Button */}
+         <Button
+            variant="ghost"
+            className="w-full justify-start text-muted-foreground"
+            onClick={handleLogout} // Add onClick handler
+          >
             <LogOut className="mr-2 h-4 w-4" />
             Logout
         </Button>
