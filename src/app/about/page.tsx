@@ -11,9 +11,9 @@ import { Separator } from '@/components/ui/separator'; // Import Separator
 
 const teamMembers = [
   // Using a different placeholder but adding a specific hint for the desired image
-  { name: 'Alice Johnson', role: 'CEO & Founder', image: 'https://picsum.photos/seed/woman_ceo_office/300/300', hint: 'woman office blue jacket glasses' },
+  { name: 'Alice Johnson', role: 'CEO & Founder', image: 'https://picsum.photos/seed/woman_ceo_office/300/300', hint: 'woman office blue jacket glasses' }, // Updated image for Alice Johnson
   { name: 'Bob Williams', role: 'Chief Investment Officer', image: 'https://picsum.photos/seed/face_bob/300/300', hint: 'person face' },
-  { name: 'Charlie Brown', role: 'Head of Financial Planning', image: 'https://picsum.photos/seed/man_office_chart/300/300', hint: 'man office laptop chart' }, // Updated placeholder URL
+  { name: 'Charlie Brown', role: 'Head of Financial Planning', image: 'https://picsum.photos/seed/man_office_chart/300/300', hint: 'man office laptop chart' },
   { name: 'Diana Davis', role: 'Client Relations Manager', image: 'https://picsum.photos/seed/face_diana/300/300', hint: 'person face' },
 ];
 
