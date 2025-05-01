@@ -10,11 +10,11 @@ import Link from 'next/link';
 import { Separator } from '@/components/ui/separator'; // Import Separator
 
 const teamMembers = [
-  // Using different seeds for potentially more face-like results, still placeholders
-  { name: 'Alice Johnson', role: 'CEO & Founder', image: 'https://picsum.photos/seed/face_alice/300/300' },
-  { name: 'Bob Williams', role: 'Chief Investment Officer', image: 'https://picsum.photos/seed/face_bob/300/300' },
-  { name: 'Charlie Brown', role: 'Head of Financial Planning', image: 'https://picsum.photos/seed/man_office_chart/300/300' }, // Updated placeholder URL
-  { name: 'Diana Davis', role: 'Client Relations Manager', image: 'https://picsum.photos/seed/face_diana/300/300' },
+  // Using a different placeholder but adding a specific hint for the desired image
+  { name: 'Alice Johnson', role: 'CEO & Founder', image: 'https://picsum.photos/seed/woman_ceo_office/300/300', hint: 'woman office blue jacket glasses' },
+  { name: 'Bob Williams', role: 'Chief Investment Officer', image: 'https://picsum.photos/seed/face_bob/300/300', hint: 'person face' },
+  { name: 'Charlie Brown', role: 'Head of Financial Planning', image: 'https://picsum.photos/seed/man_office_chart/300/300', hint: 'man office laptop chart' }, // Updated placeholder URL
+  { name: 'Diana Davis', role: 'Client Relations Manager', image: 'https://picsum.photos/seed/face_diana/300/300', hint: 'person face' },
 ];
 
 // Use static years for milestones
@@ -175,7 +175,7 @@ export default function AboutPage() {
                         fill // Use fill instead of layout
                         objectFit="cover"
                         className="transition-transform duration-500 group-hover:scale-110"
-                        data-ai-hint={member.name === 'Charlie Brown' ? "man office laptop chart" : "person face"} // Add hint for Charlie Brown
+                        data-ai-hint={member.hint || "person face"} // Use the hint from the member object
                     />
                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-70 group-hover:opacity-50 transition-opacity"></div>
                  </div>
