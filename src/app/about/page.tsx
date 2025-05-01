@@ -11,10 +11,10 @@ import { Separator } from '@/components/ui/separator'; // Import Separator
 
 const teamMembers = [
   // Using a different placeholder but adding a specific hint for the desired image
-  { name: 'Alice Johnson', role: 'CEO & Founder', image: 'https://picsum.photos/seed/woman_ceo_office/300/300', hint: 'woman office blue jacket glasses' }, // Updated image for Alice Johnson
-  { name: 'Bob Williams', role: 'Chief Investment Officer', image: 'https://picsum.photos/seed/face_bob/300/300', hint: 'person face' },
-  { name: 'Charlie Brown', role: 'Head of Financial Planning', image: 'https://picsum.photos/seed/man_office_chart/300/300', hint: 'man office laptop chart' },
-  { name: 'Diana Davis', role: 'Client Relations Manager', image: 'https://picsum.photos/seed/face_diana/300/300', hint: 'person face' },
+  { name: 'Alice Johnson', role: 'CEO & Founder', image: 'https://i.pinimg.com/736x/fe/78/c0/fe78c07e97e7f847b7acecd53a82010b.jpg', hint: 'woman office blue jacket glasses' }, // Updated image for Alice Johnson
+  { name: 'Bob Williams', role: 'Chief Investment Officer', image: 'https://i.pinimg.com/736x/ac/85/8d/ac858d7cc98a5ac19119bd3c467882e3.jpg', hint: 'person face' },
+  { name: 'Charlie Brown', role: 'Head of Financial Planning', image: 'https://i.pinimg.com/736x/3e/e1/db/3ee1dbe444587b41d89be2f243c2a5e0.jpg', hint: 'man office laptop chart' },
+  { name: 'Diana Davis', role: 'Client Relations Manager', image: 'https://i.pinimg.com/736x/01/8f/74/018f7405931cf0dedfe00d38a136f13b.jpg', hint: 'person face' },
 ];
 
 // Use static years for milestones
